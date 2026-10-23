@@ -1,0 +1,14 @@
+{
+  "title": "Szybki quiz",
+  "sections": [],
+  "quizzes": [
+    {
+      "title": "Rozgrzewka",
+      "questions": [
+        { "text": "Ile bitów ma adres IPv4?", "options": ["16", "*32", "64", "128"] },
+        { "text": "Które protokoły działają w warstwie transportowej modelu TCP/IP?",
+          "options": ["*TCP", "*UDP", "IP", "HTTP"] }
+      ]
+    }
+  ]
+}

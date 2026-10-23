@@ -1,0 +1,14 @@
+{
+  "title": "Quick quiz",
+  "sections": [],
+  "quizzes": [
+    {
+      "title": "Warm-up",
+      "questions": [
+        { "text": "How many bits does an IPv4 address have?", "options": ["16", "*32", "64", "128"] },
+        { "text": "Which protocols work at the transport layer of the TCP/IP model?",
+          "options": ["*TCP", "*UDP", "IP", "HTTP"] }
+      ]
+    }
+  ]
+}

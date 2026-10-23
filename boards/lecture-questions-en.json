@@ -1,0 +1,37 @@
+{
+  "title": "Lecture — questions & reactions",
+  "sections": [
+    {
+      "title": "Questions",
+      "color": "sky"
+    },
+    {
+      "title": "Unclear — please repeat",
+      "color": "rose"
+    },
+    {
+      "title": "Example / association",
+      "color": "green"
+    }
+  ],
+  "settings": {
+    "showNames": false,
+    "votes": true,
+    "sort": "votes"
+  },
+  "quizzes": [
+    {
+      "title": "Quick check",
+      "questions": [
+        {
+          "text": "How well do you follow the last part of the lecture?",
+          "options": [
+            "Clear, let's move on",
+            "Mostly",
+            "I got lost"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Zagrożenia w sieci uczelni",
+  "sections": [
+    { "title": "Co chronimy? (aktywa)", "color": "amber" },
+    { "title": "Co może pójść źle? (zagrożenia)", "color": "rose" },
+    { "title": "Jak się bronimy? (zabezpieczenia)", "color": "teal" }
+  ],
+  "settings": { "showNames": true, "votes": true },
+  "quizzes": [
+    {
+      "title": "Sprawdzenie po dyskusji",
+      "questions": [
+        { "text": "Który element triady CIA narusza atak ransomware szyfrujący dane?",
+          "options": ["Poufność", "*Dostępność", "Rozliczalność"] },
+        { "text": "Które z poniższych to zabezpieczenia techniczne?",
+          "options": ["*MFA", "*Segmentacja sieci", "Polityka haseł na papierze", "*Kopie zapasowe offline"] }
+      ]
+    }
+  ]
+}

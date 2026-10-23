@@ -1,0 +1,20 @@
+{
+  "title": "Threats on the university network",
+  "sections": [
+    { "title": "What do we protect? (assets)", "color": "amber" },
+    { "title": "What can go wrong? (threats)", "color": "rose" },
+    { "title": "How do we defend? (safeguards)", "color": "teal" }
+  ],
+  "settings": { "showNames": true, "votes": true },
+  "quizzes": [
+    {
+      "title": "Check after the discussion",
+      "questions": [
+        { "text": "Which element of the CIA triad does ransomware that encrypts data violate?",
+          "options": ["Confidentiality", "*Availability", "Accountability"] },
+        { "text": "Which of these are technical safeguards?",
+          "options": ["*MFA", "*Network segmentation", "A password policy on paper", "*Offline backups"] }
+      ]
+    }
+  ]
+}

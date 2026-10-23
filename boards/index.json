@@ -1,0 +1,50 @@
+[
+  {
+    "file": "wyklad-pytania.json",
+    "title": "Wykład — pytania i reakcje",
+    "desc": "Pytania, niejasne fragmenty, przykłady + szybka kontrola zrozumienia",
+    "lang": "pl"
+  },
+  {
+    "file": "lecture-questions-en.json",
+    "title": "Lecture — questions & reactions",
+    "desc": "Questions, unclear parts, examples + quick comprehension check",
+    "lang": "en"
+  },
+  {
+    "file": "retro.json",
+    "title": "Retrospektywa zajęć",
+    "desc": "3 sekcje: dobrze / do poprawy / pomysły + quiz-pulsometr",
+    "lang": "pl"
+  },
+  {
+    "file": "burza-zagrozenia.json",
+    "title": "Burza mózgów: zagrożenia w sieci",
+    "desc": "Aktywa, zagrożenia, zabezpieczenia + 2 pytania kontrolne",
+    "lang": "pl"
+  },
+  {
+    "file": "tylko-quiz.json",
+    "title": "Szybki quiz (bez tablicy)",
+    "desc": "Sam quiz: 1 pytanie jednokrotne, 1 wielokrotne",
+    "lang": "pl"
+  },
+  {
+    "file": "retro-en.json",
+    "title": "Class retrospective",
+    "desc": "3 sections: went well / to improve / ideas + pulse-check quiz",
+    "lang": "en"
+  },
+  {
+    "file": "brainstorm-threats-en.json",
+    "title": "Brainstorm: threats on the network",
+    "desc": "Assets, threats, safeguards + 2 check questions",
+    "lang": "en"
+  },
+  {
+    "file": "quick-quiz-en.json",
+    "title": "Quick quiz (no board)",
+    "desc": "Quiz only: 1 single-choice, 1 multiple-choice question",
+    "lang": "en"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "title": "Wykład — pytania i reakcje",
+  "sections": [
+    {
+      "title": "Pytania",
+      "color": "sky"
+    },
+    {
+      "title": "Niejasne — do powtórzenia",
+      "color": "rose"
+    },
+    {
+      "title": "Przykład / skojarzenie",
+      "color": "green"
+    }
+  ],
+  "settings": {
+    "showNames": false,
+    "votes": true,
+    "sort": "votes"
+  },
+  "quizzes": [
+    {
+      "title": "Szybka kontrola",
+      "questions": [
+        {
+          "text": "Na ile rozumiesz ostatnią część wykładu?",
+          "options": [
+            "Jasne, idźmy dalej",
+            "W większości",
+            "Zgubiłam/em się"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Class retrospective",
+  "sections": [
+    { "title": "What went well", "color": "green" },
+    { "title": "What to improve", "color": "rose" },
+    { "title": "Ideas for next class", "color": "sky" }
+  ],
+  "settings": { "showNames": false, "votes": true, "sort": "votes" },
+  "quizzes": [
+    {
+      "title": "Pulse check",
+      "questions": [
+        { "text": "How was the pace of today's class?",
+          "options": ["Too slow", "Just right", "Too fast"] }
+      ]
+    }
+  ]
+}

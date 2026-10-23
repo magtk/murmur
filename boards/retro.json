@@ -1,0 +1,18 @@
+{
+  "title": "Retrospektywa zajęć",
+  "sections": [
+    { "title": "Co działało dobrze", "color": "green" },
+    { "title": "Co poprawić", "color": "rose" },
+    { "title": "Pomysły na kolejne zajęcia", "color": "sky" }
+  ],
+  "settings": { "showNames": false, "votes": true, "sort": "votes" },
+  "quizzes": [
+    {
+      "title": "Pulsometr",
+      "questions": [
+        { "text": "Jak oceniasz tempo dzisiejszych zajęć?",
+          "options": ["Za wolno", "W sam raz", "Za szybko"] }
+      ]
+    }
+  ]
+}
