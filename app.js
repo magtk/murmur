@@ -347,6 +347,7 @@ function sectionHead(o, s, i, v, role) {
   }
 }
 
+const SEEN = new Set() // animujemy tylko kartki, których jeszcze nie było na ekranie
 const canArrange = (v, role) => !v.settings.hidden && (role === 'host' || v.settings.drag === 'all')
 
 function cardEl(c, v, role) {
@@ -355,7 +356,8 @@ function cardEl(c, v, role) {
   const canEdit = admin || (c.mine && !v.settings.locked)
   const canDel = admin || c.mine
   const showVotes = !v.settings.hidden && (v.settings.votes || c.votes > 0)
-  return h('article', { class: 'card' + (c.mine && !admin ? ' mine' : ''), 'data-id': c.id },
+  const fresh = SEEN.size > 0 && !SEEN.has(c.id); SEEN.add(c.id)
+  return h('article', { class: 'card' + (c.mine && !admin ? ' mine' : '') + (fresh ? ' fresh' : ''), 'data-id': c.id },
     h('p', { class: 'txt', text: c.text }),
     h('footer', {},
       canArrange(v, role) && h('span', { class: 'grip noexport', title: T('dragHint'), onpointerdown: e => startDrag(e, c.id, role), text: '⠿' }),
@@ -436,10 +438,23 @@ function startDrag(e, id, role) {
 }
 
 function editCard(c, v, role) {
-  const ta = h('textarea', { rows: 5, maxlength: MAX_TEXT }, c.text)
+  const ta = h('textarea', { rows: 5, maxlength: MAX_TEXT, 'aria-label': T('editCard') }, c.text)
   const sel = role === 'host' && h('select', {}, v.sections.map(s => h('option', { value: s.id, selected: s.id === c.sec, text: s.title || T('untitled') })))
-  openDialog(T('editCard'), h('div', { class: 'stack' }, ta, sel && h('label', {}, T('section'), sel)),
-    [[T('cancel')], [T('save'), () => { const text = cleanText(ta.value); if (!text) return false; doOp({ k: 'edit', id: c.id, text, sec: sel ? sel.value : undefined }, role) }, 'pri']])
+  // grupowanie bez przeciągania (WCAG 2.5.7): wybór grupy z listy
+  const secName = id => v.sections.find(s => s.id === id)?.title || T('untitled')
+  const gSel = role === 'host' && !v.settings.hidden && h('select', {},
+    h('option', { value: '', selected: !c.grp, text: T('noGroup') }),
+    (v.groups || []).map(g => {
+      const any = v.cards.find(x => x.grp === g.id)
+      return any && h('option', { value: g.id, selected: c.grp === g.id, text: `${g.title || T('group')} — ${secName(any.sec)}` })
+    }),
+    h('option', { value: 'new', text: T('newGroup') }))
+  openDialog(T('editCard'), h('div', { class: 'stack' }, ta, sel && h('label', {}, T('section'), sel), gSel && h('label', {}, T('group'), gSel)),
+    [[T('cancel')], [T('save'), () => {
+      const text = cleanText(ta.value); if (!text) return false
+      doOp({ k: 'edit', id: c.id, text, sec: sel ? sel.value : undefined }, role)
+      if (gSel && gSel.value !== (c.grp || '')) doOp({ k: 'setgrp', id: c.id, grp: gSel.value }, role)
+    }, 'pri']])
   setTimeout(() => ta.focus(), 30)
 }
 
@@ -673,6 +688,17 @@ function applyOp(d, actor) {
       }
       prune(); return true
     }
+    case 'setgrp': {
+      if (!arrange) return false
+      const c = card(d.id); if (!c) return false
+      if (!d.grp) c.grp = null
+      else if (d.grp === 'new') { const g = { id: uid(), title: '' }; b.groups.push(g); c.grp = g.id }
+      else {
+        const any = b.cards.find(x => x.grp === d.grp && x !== c); if (!any) return false
+        c.grp = d.grp; c.sec = any.sec
+      }
+      prune(); return true
+    }
     case 'gtitle': {
       if (!arrange) return false
       const g = b.groups.find(g => g.id === d.grp); if (!g) return false
@@ -788,7 +814,9 @@ function openQR() {
     h('p', { class: 'qr-url', text: url.replace(/^https?:\/\//, '') }),
     h('p', { class: 'qr-stats', id: 'qrStats' }),
     h('p', { class: 'hint', text: `${T('qrJoin')} · ${T('qrClose')}` }))
+  ov.tabIndex = -1
   document.body.append(ov)
+  ov.focus()
   addEventListener('keydown', key)
   updateStatus()
 }

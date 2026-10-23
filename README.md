@@ -25,6 +25,7 @@ Działa wyłącznie w przeglądarce (GitHub Pages), **bez backendu i bez bazy da
 - [Wdrożenie i konfiguracja](#wdrożenie-i-konfiguracja)
 - [Szablony tablic](#szablony-tablic)
 - [Test lokalny](#test-lokalny)
+- [Dostępność](#dostępność)
 - [Ograniczenia](#ograniczenia)
 - [Licencje i autorstwo](#licencje-i-autorstwo)
 
@@ -225,6 +226,22 @@ python3 -m http.server 8000
 
 `?local` to tryb testowy bez sieci: karty jednej przeglądarki komunikują się przez `BroadcastChannel`,
 a każda karta udaje osobną osobę. Otwórz tablicę i wybierz **Udostępnij** → „Otwórz widok uczestnika w nowej karcie”.
+
+## Dostępność
+
+Cel: **WCAG 2.2 AA**. Sprawdzone automatycznie narzędziem axe-core 4.14 (reguły WCAG 2.0/2.1/2.2 A i AA)
+na wszystkich ekranach, w motywie jasnym i ciemnym, na komputerze i w widoku telefonu: **0 naruszeń**.
+
+- **Kontrast** tekstu ≥ 4.5:1, obramowań pól i przycisków ≥ 3:1, w obu motywach.
+- **Klawiatura:** wszystko działa bez myszy: dodawanie (Enter), głosowanie, edycja, menu, quizy, okna dialogowe (Esc zamyka).
+  **Grupowanie bez przeciągania:** ✎ przy kartce → pole *Grupa* (istniejąca grupa / nowa grupa / bez grupy).
+- **Język strony** (`lang`) zmienia się razem z interfejsem PL/EN, a czytniki ekranu czytają właściwym głosem.
+- **Rozmiar:** tekst min. 11 px, przyciski min. 28 px wysokości. Tryb rzutnika (A+) powiększa tekst, a zoom przeglądarki działa bez ograniczeń.
+- **Ruch:** przy włączonym w systemie *ograniczeniu ruchu* animacje są wyłączone.
+- **Znaczenie nie tylko kolorem:** poprawne odpowiedzi mają ✓ i pogrubienie, własne kartki znacznik „▸ Ty”, głos — stan `aria-pressed`.
+
+Czego automat nie sprawdzi i warto przetestować ręcznie: pracę z czytnikiem ekranu (NVDA, VoiceOver).
+Nowe kartki nie są ogłaszane przez czytnik na bieżąco.
 
 ## Ograniczenia
 

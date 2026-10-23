@@ -112,9 +112,10 @@ export const STR = {
     peek: '👁 Podgląd (tylko u mnie)', peekOff: '👁 Wyłącz podgląd', revealed: 'Kartki odsłonięte',
     hiddenMore: n => plN(n, '+ 1 ukryta', `+ ${n} ukryte`, `+ ${n} ukrytych`),
     group: 'Grupa', renameGroup: 'Zmień nazwę grupy', ungroupAll: 'Rozgrupuj', groupName: 'Nazwa grupy',
-    dragHint: 'Przeciągnij: na kartkę = grupa, na sekcję = przeniesienie',
+    dragHint: 'Przeciągnij: na kartkę = grupa, na sekcję = przeniesienie (albo ✎ → Grupa)',
     noLimit: 'bez limitu', qTimeLeft: 'zostało',
     licence: 'Bezpłatnie dla edukacji i non-profit · użycie komercyjne na zapytanie',
+    noGroup: '(bez grupy)', newGroup: '+ nowa grupa',
   },
 
   en: {
@@ -218,8 +219,9 @@ export const STR = {
     peek: '👁 Peek (only me)', peekOff: '👁 Stop peeking', revealed: 'Cards revealed',
     hiddenMore: n => `+ ${n} hidden`,
     group: 'Group', renameGroup: 'Rename group', ungroupAll: 'Ungroup', groupName: 'Group name',
-    dragHint: 'Drag: onto a card = group, onto a section = move',
+    dragHint: 'Drag: onto a card = group, onto a section = move (or ✎ → Group)',
     noLimit: 'no limit', qTimeLeft: 'left',
     licence: 'Free for education and non-profits · commercial use on request',
+    noGroup: '(no group)', newGroup: '+ new group',
   },
 }
