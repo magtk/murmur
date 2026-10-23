@@ -532,6 +532,14 @@ function menu(label, items, cls = '') {
   const pop = h('div', { class: 'menu-pop' }, items)
   d.append(h('summary', { class: 'btn', text: label }), pop)
   pop.addEventListener('click', e => { if (e.target.closest('button')) d.open = false })
+  // na wąskim ekranie menu nie może wyjść poza lewą/prawą krawędź
+  d.addEventListener('toggle', () => {
+    if (!d.open) return
+    pop.style.right = '0px'
+    const r = pop.getBoundingClientRect()
+    if (r.left < 8) pop.style.right = `${r.left - 8}px`
+    else if (r.right > innerWidth - 8) pop.style.right = `${r.right - innerWidth + 8}px`
+  })
   return d
 }
 document.addEventListener('click', e => {
