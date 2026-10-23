@@ -234,6 +234,19 @@ a każda karta udaje osobną osobę. Otwórz tablicę i wybierz **Udostępnij** 
 - Dwie karty w tej samej przeglądarce to dla tablicy ta sama osoba. Do testów służy `?local`.
 - Wymaga https (GitHub Pages) albo `localhost`. Testowane w Chromium (desktop i widok telefonu). Aktualne Firefox i Safari obsługują wszystkie użyte API, ale warto je sprawdzić przed zajęciami.
 
+## Signature / Podpis
+
+Commits and releases are signed by **MagTk** `<magtk@duck.com>`.
+Commity i wydania podpisuje **MagTk**.
+
+Fingerprint / odcisk klucza:
+
+```
+B9CB 0694 3586 FD0B 0D7E A67D 76CB B743 63C9 1CBD
+```
+
+Verify / weryfikacja: `git log --show-signature`
+
 ## Licencje i autorstwo
 
 **© 2026 magtk. Licencja: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/)** (pełny tekst w `LICENSE.md`).
@@ -255,3 +268,15 @@ Pozostałe:
 
 - Biblioteki w `lib/` (MIT) i fonty w `lib/fonts/` (SIL OFL 1.1): pełne teksty w `lib/THIRD_PARTY_LICENSES.txt` i `lib/fonts/OFL-*.txt`. Przy kopiowaniu `lib/` zostaw je razem z plikami.
 - Kod powstał przy wsparciu Claude (Anthropic).
+
+---
+
+Project Anatomy ;)
+
+```
+Head  (concept & design):           MagT        ,_,
+Eyes  (exploration & insight):      ambr0wl    (0,0)
+Hands (development):                MagTk      (   )
+Feet  (reality check & grounding):  anovi      -"-"-
+>      Curious?     --------->      https://magt.ovh
+```
