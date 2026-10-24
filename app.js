@@ -143,7 +143,21 @@ function themeBtn(short = false) {
 }
 function toggleBig() { LS.set('tb.big', document.body.classList.toggle('big')) }
 const langBtn = () => h('button', { class: 'lang', title: T('langTitle'), onclick: e => { e.stopPropagation(); setLang(LANGS[(LANGS.indexOf(LANG) + 1) % LANGS.length]) }, text: T('langBtn') })
-const brandEl = href => h(href ? 'a' : 'span', { class: 'brand', href: href || null, title: href ? T('home') : null }, '[ ', h('b', { text: BRAND }), ' ]')
+// logo: inline SVG (kolory z CSS, więc podążają za motywem aplikacji); unikalne id masek
+let LOGO_N = 0
+function logoEl(cls) {
+  const n = ++LOGO_N, Y = `lgY${n}`, O = `lgO${n}`
+  const s = h('span', { class: 'logo ' + cls, 'aria-hidden': 'true' })
+  s.innerHTML = `<svg viewBox="0 0 64 64" focusable="false"><defs>
+<rect id="${O}" x="31.5" y="13.5" width="25" height="25" rx="3" transform="rotate(15 44 26)"/>
+<g id="${Y}" transform="rotate(7 31 34)"><rect x="16.5" y="19.5" width="29" height="29" rx="3"/><path d="M21 47 L20 58 L30.5 47 Z"/></g>
+<mask id="${O}m" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64"><rect width="64" height="64" fill="#fff"/><use href="#${Y}" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/></mask>
+<mask id="${Y}m" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64"><rect width="64" height="64" fill="#fff"/><use href="#${Y}" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/><use href="#${O}" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/></mask>
+</defs><g class="lg-g" mask="url(#${Y}m)"><rect x="6.5" y="10" width="26" height="25" rx="3" transform="rotate(-16 19.5 22.5)"/></g>
+<g class="lg-o" mask="url(#${O}m)"><use href="#${O}"/></g><use class="lg-y" href="#${Y}"/></svg>`
+  return s
+}
+const brandEl = href => h(href ? 'a' : 'span', { class: 'brand', href: href || null, title: href ? T('home') : null }, logoEl('logo-sm'), '[ ', h('b', { text: BRAND }), ' ]')
 
 // ---------- model ----------
 function normQuiz(q = {}) {
@@ -1189,7 +1203,7 @@ async function homeMain() {
   const lead = T('lead')
   $('#main').replaceChildren(h('div', { class: 'home' },
     h('p', { class: 'kicker' }, h('span', { text: T('kicker') }), h('span', { text: '[ magtk ]' })),
-    h('h1', { text: BRAND }),
+    h('h1', {}, logoEl('logo-h1'), BRAND),
     h('p', { class: 'lead' }, h('em', { text: lead[0] }), lead[1], h('strong', { text: lead[2] }), '.', h('br'), lead[3]),
     h('div', { class: 'panels' },
       cur && h('div', { class: 'panel cont' },

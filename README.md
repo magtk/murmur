@@ -1,3 +1,5 @@
+<p><img src="img/logo.svg" width="72" alt="murmur — logo"></p>
+
 # murmur
 
 **Każdy głos ma znaczenie. · *Every voice matters.***
@@ -141,6 +143,7 @@ murmur/
 ├── app.js                cała logika: model, sieć, prowadząca, uczestnik, eksport
 ├── i18n.js               teksty interfejsu PL / EN
 ├── style.css             wygląd (zmienne kolorów na początku pliku)
+├── img/                  logo (SVG), favicon, ikona telefonu, avatar 500×500, podgląd linku 1280×640
 ├── boards/               szablony tablic
 │   ├── index.json        lista szablonów na ekranie startowym
 │   └── *.json            szablony PL i EN (*-en.json)

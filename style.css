@@ -389,3 +389,15 @@ button.grp-title:hover:not(:disabled) { color: var(--c); }
 .home-foot a { color: var(--muted); }
 
 .menu-pop { max-width: calc(100vw - 16px); }
+
+/* logo */
+:root { --lg-g: #0f6b3b; --lg-o: #cc4f24; --lg-y: #d9a521; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --lg-g: #4bd17e; --lg-o: #f2845a; --lg-y: #f0c75e; } }
+:root[data-theme="dark"] { --lg-g: #4bd17e; --lg-o: #f2845a; --lg-y: #f0c75e; }
+.logo { display: inline-block; flex: none; }
+.logo svg { width: 100%; height: 100%; display: block; }
+.lg-g { fill: var(--lg-g); } .lg-o { fill: var(--lg-o); } .lg-y { fill: var(--lg-y); }
+.brand { display: inline-flex; align-items: center; gap: .15rem; }
+.brand .logo-sm { width: 22px; height: 22px; margin-right: .35rem; }
+.home h1 { display: flex; align-items: center; gap: .3em; }
+.home h1 .logo-h1 { width: .85em; height: .85em; }

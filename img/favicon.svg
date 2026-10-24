@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" role="img" aria-label="murmur">
+  <title>murmur</title>
+  <style>
+    .g { fill: #0f6b3b } .o { fill: #cc4f24 } .y { fill: #d9a521 }
+    @media (prefers-color-scheme: dark) { .g { fill: #4bd17e } .o { fill: #f2845a } .y { fill: #f0c75e } }
+  </style>
+  <defs>
+    <rect id="O" x="31.5" y="13.5" width="25" height="25" rx="3" transform="rotate(15 44 26)"/>
+    <g id="Y" transform="rotate(7 31 34)"><rect x="16.5" y="19.5" width="29" height="29" rx="3"/><path d="M21 47 L20 58 L30.5 47 Z"/></g>
+    <mask id="mO" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <rect width="64" height="64" fill="#fff"/>
+      <use xlink:href="#Y" href="#Y" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    </mask>
+    <mask id="mG" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <rect width="64" height="64" fill="#fff"/>
+      <use xlink:href="#Y" href="#Y" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+      <use xlink:href="#O" href="#O" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <g class="g" mask="url(#mG)"><rect x="6.5" y="10" width="26" height="25" rx="3" transform="rotate(-16 19.5 22.5)"/></g>
+  <g class="o" mask="url(#mO)"><use xlink:href="#O" href="#O"/></g>
+  <use class="y" xlink:href="#Y" href="#Y"/>
+</svg>
