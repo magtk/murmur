@@ -1,0 +1,6 @@
+# Uwaga: wyszukiwarki czytają robots.txt tylko z katalogu głównego domeny
+# (https://magtk.github.io/robots.txt — repo magtk/magtk.github.io).
+# Ten plik jest wzorem do skopiowania tam.
+User-agent: *
+Allow: /
+Sitemap: https://magtk.github.io/murmur/sitemap.xml

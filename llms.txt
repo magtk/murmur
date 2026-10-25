@@ -1,0 +1,28 @@
+# murmur
+
+> Every voice matters · Każdy głos ma znaczenie. A free, browser-only classroom board for lectures, seminars and webinars that lets instructors hear students who don't speak up. Participants join via QR code, link or a 10-character code (e.g. K7M2P-9XQ4R) — no account, anonymous by default — and drop questions, doubts, ideas and quick reactions as cards.
+
+Author: MagTk (https://github.com/magtk). License: PolyForm Noncommercial 1.0.0 — free for education, individuals and non-profits; commercial use requires a separate licence. Interface: Polish and English.
+
+## What it does
+
+- Sections of cards; participants add, edit and delete their own cards
+- Voting, drag-and-drop grouping (also via keyboard), sorting by votes
+- "Think first" mode: cards stay hidden until the instructor reveals them (manually or with a timer)
+- Short single- and multiple-choice quizzes with timer and live results
+- Discreet counter of how many people have contributed
+- Export to Markdown, PNG, PDF and JSON; board templates stored as JSON
+- WCAG 2.2 AA (audited with axe-core), light/dark theme, works on phones
+
+## How it works
+
+- No backend and no database: the instructor's browser holds the board; participants connect peer-to-peer via WebRTC (Trystero library, signalling through public Nostr relays, encrypted)
+- The instructor is verified by an ECDSA key fingerprint embedded in the link/code
+- Boards are temporary: they expire 7–30 days after the last change (default 21) and are removed from the browser
+- Suitable for ~30–40 participants per board
+
+## Links
+
+- App: https://magtk.github.io/murmur/
+- Source and documentation (Polish): https://github.com/magtk/murmur
+- Changelog: https://github.com/magtk/murmur/blob/main/CHANGELOG.md

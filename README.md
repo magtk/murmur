@@ -21,11 +21,14 @@ Działa wyłącznie w przeglądarce (GitHub Pages), **bez backendu i bez bazy da
 - [Instrukcja dla uczestników (do wklejenia)](#instrukcja-dla-uczestników-do-wklejenia)
 - [Funkcje](#funkcje)
 - [Jak to działa](#jak-to-działa)
+- [Gdzie są tablice i jak długo żyją](#gdzie-są-tablice-i-jak-długo-żyją)
 - [Bezpieczeństwo i prywatność](#bezpieczeństwo-i-prywatność)
 - [Wykorzystane technologie](#wykorzystane-technologie)
 - [Struktura plików](#struktura-plików)
 - [Wdrożenie i konfiguracja](#wdrożenie-i-konfiguracja)
 - [Szablony tablic](#szablony-tablic)
+- [Wersje i wydania](#wersje-i-wydania)
+- [Wyszukiwarki i AI (SEO/GEO)](#wyszukiwarki-i-ai-seogeo)
 - [Test lokalny](#test-lokalny)
 - [Dostępność](#dostępność)
 - [Ograniczenia](#ograniczenia)
@@ -36,7 +39,7 @@ Działa wyłącznie w przeglądarce (GitHub Pages), **bez backendu i bez bazy da
 ## Szybki start (prowadząca/y)
 
 1. Otwórz `https://<login>.github.io/murmur/`, a następnie wybierz **nową tablicę** (tytuł i sekcje) albo **szablon**.
-2. Kliknij **QR**, żeby wyświetlić kod na cały ekran (na rzutnik). Na webinarze użyj **Udostępnij**, skopiuj link i wklej go na czat (Teams, Moodle).
+2. Kliknij **QR**, żeby wyświetlić na cały ekran (na rzutnik) kod QR, adres i **krótki kod** do przepisania (np. `K7M2P-9XQ4R`). Na webinarze użyj **Udostępnij**, skopiuj link i wklej go na czat (Teams, Moodle).
 3. Opcjonalnie kliknij **🙈 Ukryj**, jeśli każdy ma najpierw pomyśleć sam. Kartki odsłaniasz ręcznie albo timerem.
 4. Kliknij **Quiz**, a potem **▶ Start** (opcjonalnie z limitem czasu). Następnie **Zamknij odpowiedzi** i **Pokaż wyniki**.
 5. Na koniec wybierz **Eksport**: `.md` (notatka), `.png` (zrzut), `.json` (do ponownego wczytania), druk/PDF.
@@ -49,13 +52,13 @@ Przed pierwszymi zajęciami w nowej sali zrób jedną próbę: laptop plus telef
 
 ## Instrukcja dla uczestników (do wklejenia)
 
-> **PL:** Zeskanuj kod QR telefonem albo otwórz link. Nie trzeba się logować ani niczego instalować.
+> **PL:** Zeskanuj kod QR telefonem albo otwórz link. Przy komputerze w sali możesz też wejść na `magtk.github.io/murmur` i wpisać kod z ekranu (np. `K7M2P-9XQ4R`). Nie trzeba się logować ani niczego instalować.
 > Wpisz myśl w polu „Dorzuć swoją myśl…” i naciśnij Enter. Wpisy są anonimowe.
 > Możesz głosować ▲ na kartki innych i edytować lub usuwać swoje (✎ / ×).
 > Gdy pojawi się quiz, zaznacz odpowiedź i kliknij „Wyślij odpowiedź”. Do zamknięcia quizu można ją zmienić.
 > Przycisk **EN/PL** zmienia język.
 >
-> **EN:** Scan the QR code with your phone or open the link. No login, nothing to install.
+> **EN:** Scan the QR code with your phone or open the link. On a lab computer you can also go to `magtk.github.io/murmur` and type the code from the screen (e.g. `K7M2P-9XQ4R`). No login, nothing to install.
 > Type into “Drop a thought…” and press Enter. Your cards are anonymous.
 > You can vote ▲ on others' cards and edit/delete your own (✎ / ×).
 > When a quiz appears, pick your answer and click “Send answer”. You can change it until the quiz closes.
@@ -65,7 +68,7 @@ Przed pierwszymi zajęciami w nowej sali zrób jedną próbę: laptop plus telef
 
 | Obszar | Co robi |
 |---|---|
-| **Wejście** | Krótki link (~23 znaki po `#`) i kod QR na cały ekran z hasłem i licznikiem osób. Bez konta. |
+| **Wejście** | Kod QR na cały ekran, link albo **kod z 10 znaków** do wpisania ręcznie (`K7M2P-9XQ4R`, bez mylących 0/O/1/L). Bez konta. |
 | **Kartki** | Sekcje z tytułami i kolorami. Dodawanie Enterem, edycja i usuwanie własnych kartek. Prowadząca może wszystko. |
 | **Anonimowość** | Domyślnie **anonimowo**: podpis w ogóle nie jest zapisywany. Opcjonalny tryb **pseudonimów** z losowaniem 🎲. |
 | **„Najpierw pomyśl sam”** | 🙈 Ukryj: każdy widzi tylko swoje kartki i liczbę ukrytych. Odsłonięcie ręczne albo **timer** 1–10 min. |
@@ -96,15 +99,33 @@ flowchart LR
 ```
 
 1. **GitHub Pages** serwuje tylko pliki statyczne. Nie widzi treści tablicy.
-2. Prowadząca tworzy tablicę. Przeglądarka generuje **kod pokoju** i **parę kluczy ECDSA P-256**. Link ma postać `…/murmur/#KOD-ODCISK`.
+2. Prowadząca tworzy tablicę. Przeglądarka generuje **kod pokoju** i **parę kluczy ECDSA P-256**. Link ma postać `…/murmur/#k7m2p-9xq4r`: **4 znaki losowe + 6 znaków odcisku** (skrótu SHA-256) klucza publicznego prowadzącej. Ten sam kod można wpisać na stronie głównej.
 3. Uczestnik otwiera link. Przeglądarki odnajdują się przez **publiczne przekaźniki Nostr** (protokół sygnalizacji WebRTC, biblioteka Trystero). Przez przekaźniki idą wyłącznie **zaszyfrowane** (AES-GCM, klucz z kodu pokoju) opisy połączenia. Potem dane płyną **bezpośrednio** między przeglądarkami (WebRTC DataChannel, szyfrowanie DTLS).
-4. **Weryfikacja prowadzącej:** uczestnik wysyła losowe wyzwanie, a prowadząca podpisuje je kluczem prywatnym i odsyła klucz publiczny. Uczestnik sprawdza, czy skrót klucza zgadza się z `ODCISKIEM` z linku, i weryfikuje podpis. Student nie podszyje się więc pod tablicę.
+4. **Weryfikacja prowadzącej:** uczestnik wysyła losowe wyzwanie, a prowadząca podpisuje je kluczem prywatnym i odsyła klucz publiczny. Uczestnik sprawdza, czy skrót klucza zaczyna się od odcisku z kodu, i weryfikuje podpis. Podrobienie 6-znakowego odcisku (30 bitów) wymagałoby około miliarda prób generowania klucza, czyli dni obliczeń, a nie minut w trakcie zajęć. Linki z wersji 1.0–1.1 mają dłuższy, 12-znakowy odcisk i dalej działają.
 5. **Stan trzyma tylko prowadząca.** Uczestnicy wysyłają operacje (`dodaj`, `edytuj`, `głosuj`, `przenieś`, `odpowiedz`…). Przeglądarka prowadzącej sprawdza uprawnienia i limit (~30 operacji / 10 s), zapisuje stan i odsyła każdemu jego widok. W trybie ukrytym każdy dostaje wtedy tylko swoje kartki.
 6. **Timery** (odsłonięcie, czas quizu) liczy przeglądarka prowadzącej. Uczestnicy dostają czas do końca i odliczają lokalnie.
 7. Odświeżenie karty prowadzącej odtwarza stan z `localStorage` i ten sam link, a uczestnicy łączą się ponownie.
 
 Komunikaty między przeglądarkami: `chal` / `proof` (weryfikacja), `hello` (identyfikator i pseudonim),
 `op` (operacja uczestnika), `state` (widok tablicy dla danej osoby).
+
+## Gdzie są tablice i jak długo żyją
+
+**Tablice nie są przechowywane w repozytorium ani na żadnym serwerze.** GitHub Pages serwuje tylko pliki
+aplikacji. Każda tablica istnieje wyłącznie w przeglądarce osoby, która ją założyła (`localStorage`),
+więc gdy ktoś inny używa murmur z tego adresu, jego tablice nie trafiają do repo i nie są tu widoczne.
+
+Tablice są z założenia **tymczasowe** (na zajęcia, wykład, webinar). Trwałe materiały lepiej trzymać
+w Moodle albo w notesie zajęć w Teams.
+
+| Co | Ile żyje | Co potem |
+|---|---|---|
+| Tablica prowadzącej | **21 dni od ostatniej zmiany** (Ustawienia → *Ważność*: 7 / 14 / 21 / 30 dni) | 3 dni przed końcem pojawia się pasek *Pobierz .json / Przedłuż o 7 dni* |
+| Wygasła tablica | jeszcze 7 dni | okno: *Pobierz .json / .md / Przedłuż / Usuń teraz*; bez decyzji usuwa się sama |
+| Kopia ostatniego widoku u uczestnika | 30 dni | usuwa się automatycznie przy kolejnym otwarciu murmur |
+
+Każda zmiana na tablicy (kartka, głos, quiz) liczy się jako „ostatnia zmiana”. Samo otwarcie nie przedłuża ważności.
+Zapisany `.json` można później wczytać (*Więcej → Wczytaj tablicę z pliku*) i kontynuować.
 
 ## Bezpieczeństwo i prywatność
 
@@ -155,6 +176,10 @@ murmur/
 │   └── fonts/            DM Mono, Fraunces (woff2) + fonts.css + licencje OFL
 ├── LICENSE.md            licencja PolyForm Noncommercial 1.0.0
 ├── COMMERCIAL.md         kiedy potrzebna licencja komercyjna (PL/EN)
+├── CHANGELOG.md          historia zmian (wersje)
+├── llms.txt              opis dla wyszukiwarek i asystentów AI
+├── sitemap.xml           mapa strony dla wyszukiwarek
+├── robots.txt            wzór do skopiowania do katalogu głównego domeny
 ├── .nojekyll             GitHub Pages serwuje pliki bez przetwarzania przez Jekyll
 └── README.md
 ```
@@ -217,6 +242,29 @@ Eksport „Zapisz całość (.json)” też jest poprawnym plikiem do wczytania,
 
 W repo są szablony: *Wykład — pytania i reakcje*, *Retrospektywa zajęć*, *Burza mózgów: zagrożenia w sieci*,
 *Szybki quiz*, każdy w wersji PL i EN.
+
+## Wersje i wydania
+
+Historia zmian jest w [`CHANGELOG.md`](CHANGELOG.md), a numer wersji w stopce strony głównej (`APP_VERSION` w `app.js`).
+Numeracja [SemVer](https://semver.org/): `1.2.0` → poprawki `1.2.1`, nowe funkcje `1.3.0`, zmiany niezgodne wstecz `2.0.0`.
+
+Przy każdym wydaniu:
+1. dopisz sekcję w `CHANGELOG.md` i zmień `APP_VERSION`;
+2. commit, podpisany tag i push:
+   ```bash
+   git tag -s v1.2.0 -m "murmur 1.2.0"
+   git push origin main v1.2.0
+   ```
+3. na GitHubie: **Releases → Draft a new release → tag** i wklej sekcję z changeloga.
+
+## Wyszukiwarki i AI (SEO/GEO)
+
+- `index.html` zawiera statyczny opis (PL/EN) widoczny dla wyszukiwarek i crawlerów AI, które nie wykonują JavaScriptu, a także dane strukturalne schema.org (`WebApplication`) i znaczniki Open Graph.
+- `llms.txt` to zwięzły opis po angielsku dla asystentów AI; `sitemap.xml` zgłoś w Google Search Console.
+- `robots.txt` działa tylko w katalogu głównym domeny: skopiuj go do repo `magtk/magtk.github.io`.
+- **Po zmianie domeny** (np. `lab.magt.pro`) podmień adres w `index.html` (`canonical`, `og:url`, `og:image`, JSON-LD), `sitemap.xml`, `llms.txt` i `robots.txt`.
+- W repo na GitHubie uzupełnij **About** (⚙ przy „About”): opis, adres strony i tematy, np. `classroom` `education` `brainstorming` `audience-response` `quiz` `webrtc` `p2p` `no-backend` `github-pages` `accessibility`.
+- Tablice (adresy z `#…`) nie są indeksowane: część po `#` nie trafia do wyszukiwarek.
 
 ## Test lokalny
 

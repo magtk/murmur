@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" role="img" aria-label="murmur">
   <title>murmur</title>
   <style>
-    .g { fill: #0f6b3b } .o { fill: #cc4f24 } .y { fill: #d9a521 }
-    @media (prefers-color-scheme: dark) { .g { fill: #4bd17e } .o { fill: #f2845a } .y { fill: #f0c75e } }
+    .g { fill: #0b5530 } .o { fill: #d4602e } .y { fill: #e2b23a }
+    @media (prefers-color-scheme: dark) { .g { fill: #4cd17f } .o { fill: #c2410f } .y { fill: #eec049 } }
   </style>
   <defs>
     <rect id="O" x="31.5" y="13.5" width="25" height="25" rx="3" transform="rotate(15 44 26)"/>

@@ -391,9 +391,9 @@ button.grp-title:hover:not(:disabled) { color: var(--c); }
 .menu-pop { max-width: calc(100vw - 16px); }
 
 /* logo */
-:root { --lg-g: #0f6b3b; --lg-o: #cc4f24; --lg-y: #d9a521; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --lg-g: #4bd17e; --lg-o: #f2845a; --lg-y: #f0c75e; } }
-:root[data-theme="dark"] { --lg-g: #4bd17e; --lg-o: #f2845a; --lg-y: #f0c75e; }
+:root { --lg-g: #0b5530; --lg-o: #d4602e; --lg-y: #e2b23a; }  /* rozróżnialne przy daltonizmie (sprawdzone symulacją) */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --lg-g: #4cd17f; --lg-o: #c2410f; --lg-y: #eec049; } }
+:root[data-theme="dark"] { --lg-g: #4cd17f; --lg-o: #c2410f; --lg-y: #eec049; }
 .logo { display: inline-block; flex: none; }
 .logo svg { width: 100%; height: 100%; display: block; }
 .lg-g { fill: var(--lg-g); } .lg-o { fill: var(--lg-o); } .lg-y { fill: var(--lg-y); }
@@ -401,3 +401,23 @@ button.grp-title:hover:not(:disabled) { color: var(--c); }
 .brand .logo-sm { width: 22px; height: 22px; margin-right: .35rem; }
 .home h1 { display: flex; align-items: center; gap: .3em; }
 .home h1 .logo-h1 { width: .85em; height: .85em; }
+
+.warn.expiry { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.warn.expiry span { flex: 1 1 22rem; }
+.cont-meta.exp { color: var(--accent2); }
+
+/* kod do przepisania */
+.codebox { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .3rem .8rem; text-align: center; }
+.codebox .lbl { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.codebox .code { font: 500 clamp(1.6rem, 4vw, 2.4rem)/1.1 var(--mono); letter-spacing: .12em; color: var(--ink); }
+.codebox .addr { flex-basis: 100%; font-size: 12px; color: var(--dim); }
+.qr-full .codebox .code { font-size: clamp(2rem, 6vw, 4rem); }
+.qr-full .codebox .addr { font-size: clamp(.95rem, 2vw, 1.4rem); color: var(--muted); }
+.code-in { font: 500 1.2rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.panel.join { border-left: 2px solid var(--accent); }
+.home-foot a:first-child { color: var(--muted); }
+
+/* treść dla wyszukiwarek: widoczna tylko bez JavaScriptu */
+.js .seo { display: none; }
+.seo { max-width: 46rem; }
+.qr-full .qr-box svg { width: min(54vh, 86vw); }

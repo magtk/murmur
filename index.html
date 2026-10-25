@@ -1,28 +1,101 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>murmur</title>
-<meta name="description" content="murmur — Każdy głos ma znaczenie. Pytania, wątpliwości, pomysły i krótkie quizy na zajęcia. / Every voice matters. Questions, doubts, ideas and short quizzes for classes and webinars.">
+<title>murmur — pytania, wątpliwości i quizy na zajęcia · Every voice matters</title>
+<meta name="description" content="murmur: darmowa tablica na zajęcia, wykłady i webinary. Studenci dołączają przez QR, link lub krótki kod, bez konta i anonimowo, dorzucają pytania, wątpliwości i pomysły, głosują i odpowiadają na krótkie quizy. Działa w przeglądarce, bez serwera. PL/EN.">
+<meta name="author" content="MagTk">
+<meta name="keywords" content="tablica na zajęcia, burza mózgów, pytania od studentów, anonimowe pytania, quiz na zajęcia, aktywizacja studentów, audience response, classroom backchannel, brainstorming board, live quiz, WebRTC, bez rejestracji">
+<link rel="canonical" href="https://magtk.github.io/murmur/">
+
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<meta property="og:title" content="murmur">
-<meta property="og:description" content="Każdy głos ma znaczenie. · Every voice matters.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MagTk lab">
+<meta property="og:url" content="https://magtk.github.io/murmur/">
+<meta property="og:title" content="murmur — Każdy głos ma znaczenie · Every voice matters">
+<meta property="og:description" content="Pytania, wątpliwości, pomysły i krótkie quizy na zajęcia — przez QR lub kod, bez konta, anonimowo. Questions, doubts, ideas and short quizzes for classes — via QR or code, no account, anonymous.">
 <meta property="og:image" content="https://magtk.github.io/murmur/img/social-preview.png">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="640">
+<meta property="og:image:alt" content="murmur — logo i hasło: Każdy głos ma znaczenie / Every voice matters">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
+
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f3efe5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141210" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="lib/fonts/fonts.css">
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js')</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "murmur",
+  "alternateName": "murmur — Every voice matters",
+  "url": "https://magtk.github.io/murmur/",
+  "description": "Browser-only classroom board: participants join via QR code, link or short code (no account, anonymous by default) and drop questions, doubts, ideas and quick reactions as cards; voting, grouping, hidden-until-reveal mode and short single/multiple-choice quizzes. No backend: peer-to-peer (WebRTC). Polish and English UI.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any (web browser)",
+  "browserRequirements": "Requires a modern browser with WebRTC and JavaScript",
+  "inLanguage": ["pl", "en"],
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" },
+  "license": "https://polyformproject.org/licenses/noncommercial/1.0.0/",
+  "image": "https://magtk.github.io/murmur/img/social-preview.png",
+  "author": { "@type": "Organization", "name": "MagTk", "url": "https://github.com/magtk" },
+  "audience": { "@type": "EducationalAudience", "educationalRole": ["teacher", "student"] },
+  "accessibilityFeature": ["highContrastDisplay", "displayTransformability"],
+  "accessibilitySummary": "Designed and audited against WCAG 2.2 AA in light and dark themes; full keyboard operation, including non-drag grouping.",
+  "featureList": [
+    "Join via QR code, link or 10-character code — no account",
+    "Anonymous by default, optional pseudonyms",
+    "Sections with cards, voting and drag-and-drop grouping",
+    "Hide cards until reveal, with timer",
+    "Short single- and multiple-choice quizzes with timer and live results",
+    "Participant counter: how many people contributed",
+    "Export to JSON, Markdown, PNG and PDF",
+    "Polish / English interface, light / dark theme",
+    "No server: peer-to-peer via WebRTC"
+  ]
+}
+</script>
 </head>
 <body>
 <header class="top" id="top"></header>
-<main id="main"><p class="boot">…</p></main>
+<main id="main">
+  <!-- Treść dla wyszukiwarek i czytników bez JavaScriptu; aplikacja zastępuje ją swoim interfejsem. -->
+  <article class="home seo">
+    <h1>murmur</h1>
+    <p class="lead"><strong>Każdy głos ma znaczenie.</strong> Narzędzie na zajęcia, wykłady i webinary, które pozwala usłyszeć także tych, którzy nie zabierają głosu.</p>
+    <h2>Co to jest</h2>
+    <p>Prowadzący zakłada tablicę z sekcjami i pokazuje kod QR, link albo krótki kod (np. K7M2P-9XQ4R). Uczestnicy dołączają z telefonu lub komputera — bez konta, domyślnie anonimowo — i dorzucają pytania, wątpliwości, pomysły i krótkie reakcje na kartkach.</p>
+    <ul>
+      <li>głosowanie na kartki i grupowanie podobnych myśli,</li>
+      <li>tryb „najpierw pomyśl sam”: kartki innych widać dopiero po odsłonięciu (ręcznie lub timerem),</li>
+      <li>krótkie quizy jednokrotnego i wielokrotnego wyboru z wynikami na żywo,</li>
+      <li>licznik osób, które już coś dorzuciły — przydatny zwłaszcza online,</li>
+      <li>eksport do Markdown, PNG, PDF i JSON,</li>
+      <li>interfejs po polsku i angielsku, motyw jasny i ciemny, zgodność z WCAG 2.2 AA.</li>
+    </ul>
+    <h2>Jak to działa</h2>
+    <p>murmur działa w całości w przeglądarce. Przeglądarka prowadzącego przechowuje tablicę, a uczestnicy łączą się z nią bezpośrednio (WebRTC, peer-to-peer). Nie ma serwera ani bazy danych; tablice są tymczasowe i wygasają po kilku tygodniach od ostatniej zmiany.</p>
+    <h2>Licencja</h2>
+    <p>Bezpłatnie dla edukacji, osób prywatnych i organizacji non-profit (PolyForm Noncommercial 1.0.0). Użycie komercyjne na zapytanie. Autor: MagTk.</p>
+
+    <section lang="en">
+      <h2>murmur — Every voice matters</h2>
+      <p>A classroom tool for lectures, seminars and webinars that lets you hear those who don't speak up, too. The instructor creates a board and shows a QR code, link or short code; participants join from a phone or computer — no account, anonymous by default — and drop questions, doubts, ideas and quick reactions as cards. Voting, grouping, hide-until-reveal with a timer, short quizzes with live results, export, Polish/English UI. Runs entirely in the browser — peer-to-peer, no server, temporary boards. Free for education and non-profits.</p>
+    </section>
+    <noscript><p><strong>murmur wymaga włączonego JavaScriptu. · murmur requires JavaScript.</strong></p></noscript>
+  </article>
+</main>
 <dialog id="dlg"></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
 <footer class="owl" aria-hidden="true"><pre> ,_,

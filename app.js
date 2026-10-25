@@ -22,6 +22,13 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
+const APP_VERSION = '1.2.0'
+const REPO_URL = 'https://github.com/magtk/murmur'
+// czas życia tablicy: liczony od ostatniej zmiany; po terminie pytamy, po kolejnych 7 dniach usuwamy
+const TTL_OPTIONS = [7, 14, 21, 30]
+const DAY = 864e5
+const GRACE_DAYS = 7
+const STUDENT_CACHE_DAYS = 30
 const enc = s => new TextEncoder().encode(s)
 
 // ---------- język ----------
@@ -202,6 +209,7 @@ function normBoard(b = {}, keepLive = false) {
       votes: st.votes !== false, locked: !!st.locked, hidden,
       drag: st.drag === 'all' ? 'all' : 'host',
       sort: ['new', 'old', 'votes'].includes(st.sort) ? st.sort : 'new',
+      ttl: TTL_OPTIONS.includes(+st.ttl) ? +st.ttl : 21, // dni od ostatniej zmiany
     },
   }
 }
@@ -596,12 +604,20 @@ async function newKeys() {
 async function startHostWith(board) {
   const cur = LS.get('tb.host')
   if (cur && !confirm(T('confirmReplace', cur.board?.title))) return
-  LS.set('tb.host', { code: uid(10), ...(await newKeys()), board: normBoard(board) })
+  const k = await newKeys()
+  // krótki kod do przepisania: 4 znaki losowe + 6 znaków odcisku klucza (≈30 bitów ochrony przed podszyciem)
+  LS.set('tb.host', { code: uid(4) + k.fp.slice(0, 6), short: true, ...k, created: Date.now(), touched: Date.now(), board: normBoard(board) })
   location.hash = 'host'
 }
 
 let saveT
-function hostSave() { clearTimeout(saveT); saveT = setTimeout(() => LS.set('tb.host', { ...H.sess, board: H.board }), 300) }
+function hostSave() {
+  H.sess.touched = Date.now()
+  clearTimeout(saveT); saveT = setTimeout(() => LS.set('tb.host', { ...H.sess, board: H.board }), 300)
+}
+// termin ważności sesji prowadzącego
+const expiryOf = s => (s.touched || s.created || Date.now()) + (TTL_OPTIONS.includes(+s.board?.settings?.ttl) ? +s.board.settings.ttl : 21) * DAY
+const daysLeft = s => Math.ceil((expiryOf(s) - Date.now()) / DAY)
 let bcT
 function scheduleBroadcast() {
   if (bcT) return
@@ -761,8 +777,10 @@ async function hostMain() {
   try {
     H.priv = await crypto.subtle.importKey('jwk', s.priv, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign'])
   } catch (e) { return fatal('keyFail') }
-  rerender = () => { renderShell('host'); hostTop(); hostRender() }
+  if (!s.touched) { s.touched = s.created = Date.now(); LS.set('tb.host', s) }
+  rerender = () => { renderShell('host'); hostTop(); hostRender(); expiryNotice() }
   rerender()
+  if (daysLeft(s) <= 0) setTimeout(expiredDialog, 300)
 
   const dup = new BroadcastChannel('tablica-host')
   dup.onmessage = ({ data }) => {
@@ -800,9 +818,13 @@ async function hostMain() {
   addEventListener('beforeunload', e => { if (H.peers.size) { e.preventDefault(); e.returnValue = '' } })
 }
 
-function shareLink() {
-  return `${location.origin}${location.pathname}${LOCAL ? '?local' : ''}#${H.sess.code}-${H.sess.fp}`
-}
+const fmtCode = c => `${c.slice(0, 5)}-${c.slice(5)}`
+const shareCode = () => H.sess.short ? fmtCode(H.sess.code) : `${H.sess.code}-${H.sess.fp}`
+const baseUrl = () => `${location.origin}${location.pathname}${LOCAL ? '?local' : ''}`
+function shareLink() { return `${baseUrl()}#${shareCode()}` }
+const codeBox = () => H.sess.short && h('div', { class: 'codebox' },
+  h('span', { class: 'lbl', text: T('codeLbl') }), h('span', { class: 'code', text: shareCode().toUpperCase() }),
+  h('span', { class: 'addr', text: `${T('typeAddr')} ${baseUrl().replace(/^https?:\/\//, '').replace(/\?local$/, '')}` }))
 function qrSvg(url, cls = 'qr') {
   const qr = qrcode(0, 'M'); qr.addData(url); qr.make()
   const box = h('div', { class: cls }); box.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 2, scalable: true })
@@ -811,6 +833,7 @@ function qrSvg(url, cls = 'qr') {
 function openShare() {
   const url = shareLink()
   openDialog(T('shareTitle'), h('div', { class: 'share' }, qrSvg(url),
+    codeBox(),
     h('div', { class: 'row' },
       h('input', { value: url, readonly: true, 'aria-label': 'Link', onclick: e => e.target.select() }),
       h('button', { type: 'button', class: 'pri', onclick: () => copy(url), text: T('copy') })),
@@ -825,7 +848,8 @@ function openQR() {
   const ov = h('div', { class: 'qr-full', role: 'dialog', 'aria-label': T('qrTitle'), onclick: close },
     h('p', { class: 'qr-tag', text: T('tagline') }),
     qrSvg(url, 'qr-box'),
-    h('p', { class: 'qr-url', text: url.replace(/^https?:\/\//, '') }),
+    !H.sess.short && h('p', { class: 'qr-url', text: url.replace(/^https?:\/\//, '') }),
+    codeBox(),
     h('p', { class: 'qr-stats', id: 'qrStats' }),
     h('p', { class: 'hint', text: `${T('qrJoin')} · ${T('qrClose')}` }))
   ov.tabIndex = -1
@@ -845,6 +869,8 @@ function hostTop() {
       chk(st.votes, T('votes'), x => { st.votes = x }),
       chk(st.drag === 'all', T('dragAll'), x => { st.drag = x ? 'all' : 'host' }),
       chk(st.locked, T('lockAdd'), x => { st.locked = x }),
+      h('label', { title: T('ttlHint') }, T('ttlLbl'), h('select', { onchange: e => { st.ttl = +e.target.value; hostChanged(); expiryNotice() } },
+        TTL_OPTIONS.map(d => h('option', { value: String(d), selected: st.ttl === d, text: T('ttlDays', d) })))),
       h('label', {}, T('sort'), h('select', { onchange: e => { st.sort = e.target.value; hostChanged() } },
         [['new', T('sortNew')], ['old', T('sortOld')], ['votes', T('sortVotes')]].map(([v, t]) => h('option', { value: v, selected: st.sort === v, text: t })))),
       h('hr'),
@@ -892,6 +918,38 @@ function updateStatus() {
     el.title = T('statsTitle')
   }
   const q = $('#qrStats'); if (q) q.textContent = `${T('people', on)} online · ✎ ${c}`
+}
+
+function exportJSON() {
+  const b = H.board
+  download(`${slug(b.title)}-${stamp()}.json`, JSON.stringify({ ...b, live: null, revealAt: null, exported: new Date().toISOString() }, null, 2))
+}
+function extendBoard(days = 7) {
+  // przedłużenie = przesunięcie „ostatniej zmiany” tak, by do końca zostało `days` dni
+  const ttl = H.board.settings.ttl
+  H.sess.touched = Math.max(H.sess.touched || 0, Date.now() - (ttl - days) * DAY)
+  LS.set('tb.host', { ...H.sess, board: H.board })
+  expiryNotice(); toast(T('extended', daysLeft(H.sess)))
+}
+function expiryNotice() {
+  const el = $('#warn'); if (!el || !H.sess) return
+  el.querySelector('.expiry')?.remove()
+  const n = daysLeft(H.sess)
+  if (n > 3) return
+  el.append(h('div', { class: 'warn expiry noexport' },
+    h('span', { text: n > 0 ? T('expSoon', n) : T('expiredShort') }), ' ',
+    h('button', { onclick: exportJSON, text: T('dlJson') }), ' ',
+    h('button', { onclick: () => extendBoard(7), text: T('extend') })))
+}
+function expiredDialog() {
+  const s = H.sess, when = new Date(s.touched || s.created).toLocaleDateString(T('dateLocale'))
+  openDialog(T('expiredTitle'), h('div', { class: 'stack' },
+    h('p', { style: 'margin:0', text: T('expiredBody', H.board.title, when) }),
+    h('p', { class: 'hint', text: T('expiredAuto', GRACE_DAYS) })),
+    [[T('dlJson'), () => { exportJSON(); return false }],
+     [T('dlMd'), () => { download(`${slug(H.board.title)}-${stamp()}.md`, markdown(hostMd()), 'text/markdown'); return false }],
+     [T('extend'), () => extendBoard(7)],
+     [T('delNow'), () => { if (!confirm(T('confirmEnd'))) return false; H.net?.leave(); LS.del('tb.host'); H.peers.clear(); location.hash = '' }, 'pri']])
 }
 
 function hostRender() {
@@ -1078,7 +1136,7 @@ async function studentMain(code, fp) {
     pending.delete(peer)
     let ok = false
     try {
-      if (await fingerprint(d.pk) === fp) { // klucz zgodny z odciskiem z linku
+      if ((await fingerprint(d.pk)).startsWith(fp)) { // klucz zgodny z odciskiem z linku (12 lub 6 znaków)
         const pub = await crypto.subtle.importKey('raw', unb64u(d.pk), { name: 'ECDSA', namedCurve: 'P-256' }, false, ['verify'])
         ok = await crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, pub, unb64u(d.s), enc(d.n + '|' + code))
       }
@@ -1136,7 +1194,7 @@ function applyState(v, cached = false) {
   v.revealAt = v.revealIn != null ? now + v.revealIn : null
   if (v.quiz) v.quiz.untilAt = v.quiz.untilIn != null ? now + v.quiz.untilIn : null
   S.v = v
-  if (!cached) LS.set('tb.last.' + S.room, v)
+  if (!cached) LS.set('tb.last.' + S.room, { ...v, _ts: Date.now() })
   if (S.pseud !== !!v.settings.showNames) studentTop()
   const cp = $('#contrib'), c = v.stats?.contrib || 0
   if (cp) { cp.hidden = !c; cp.textContent = `✎ ${c}`; cp.title = T('contribTitle', c) }
@@ -1206,10 +1264,22 @@ async function homeMain() {
     h('h1', {}, logoEl('logo-h1'), BRAND),
     h('p', { class: 'lead' }, h('em', { text: lead[0] }), lead[1], h('strong', { text: lead[2] }), '.', h('br'), lead[3]),
     h('div', { class: 'panels' },
+      h('div', { class: 'panel join' },
+        h('h2', { text: T('joinTitle') }),
+        h('form', { class: 'stack', onsubmit: e => {
+          e.preventDefault()
+          const v = e.target.code.value.toLowerCase().replace(/[\s-]/g, '')
+          if (!/^[a-km-np-z2-9]{10}$/.test(v)) { toast(T('joinBad'), 5000); e.target.code.focus(); return }
+          location.hash = fmtCode(v)
+        } },
+          h('label', { class: 'stack' }, T('joinHint'),
+            h('input', { name: 'code', class: 'code-in', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', maxlength: 14, placeholder: T('joinPh') })),
+          h('button', { class: 'pri', type: 'submit', text: T('joinBtn') }))),
       cur && h('div', { class: 'panel cont' },
         h('h2', { text: T('openBoard') }),
         h('p', { class: 'cont-title', text: cur.board?.title || T('defBoard') }),
         h('p', { class: 'cont-meta', text: T('contMeta', cur.board?.sections?.length || 0, cur.board?.cards?.length || 0, cur.board?.quizzes?.length || 0) }),
+        h('p', { class: 'cont-meta' + (daysLeft(cur) <= 3 ? ' exp' : ''), text: daysLeft(cur) > 0 ? T('homeExp', daysLeft(cur)) : T('expiredShort') }),
         h('div', { style: 'display:flex;gap:.5rem;flex-wrap:wrap' },
           h('button', { class: 'pri', onclick: () => { location.hash = 'host' }, text: T('back') }))),
       h('div', { class: 'panel' },
@@ -1220,7 +1290,7 @@ async function homeMain() {
       h('div', { class: 'panel' },
         h('h2', { text: T('fromTpl') }), tplBox,
         h('button', { onclick: async () => { const f = await pickFile(); if (!f) return; try { startHostWith(normBoard(JSON.parse(await f.text()))) } catch { toast(T('badFile')) } }, text: T('loadDisk') }))),
-    h('p', { class: 'home-foot' }, '© 2026 magtk · ',
+    h('p', { class: 'home-foot' }, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
       h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
       ' · ', T('licence'))))
   try {
@@ -1245,10 +1315,27 @@ function fatal(key) {
 }
 
 // ---------- start ----------
+// sprzątanie: wygasłe tablice prowadzącego (po okresie łaski) i stare kopie u uczestników
+function housekeeping() {
+  const s = LS.get('tb.host')
+  if (s && s.board && Date.now() > expiryOf(s) + GRACE_DAYS * DAY) LS.del('tb.host')
+  try {
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+      const k = localStorage.key(i)
+      if (!k || !k.startsWith('tb.last.')) continue
+      const v = LS.get(k, null)
+      if (!v || !v._ts || Date.now() - v._ts > STUDENT_CACHE_DAYS * DAY) localStorage.removeItem(k)
+    }
+  } catch {}
+}
 function route() {
   if (!window.isSecureContext || !crypto.subtle) return fatal('needHttps')
-  const m = location.hash.match(/^#([a-z2-9]{10})-([a-z2-9]{12})$/)
+  housekeeping()
+  const hash = location.hash.toLowerCase()
+  const m = hash.match(/^#([a-z2-9]{10})-([a-z2-9]{12})$/)
   if (m) return studentMain(m[1], m[2])
+  const k = hash.match(/^#([a-km-np-z2-9]{5})-?([a-km-np-z2-9]{5})$/) // krótki kod
+  if (k) { const code = k[1] + k[2]; return studentMain(code, code.slice(4)) }
   if (/^#r=/.test(location.hash)) return fatal('badLink') // link ze starszej wersji
   if (location.hash === '#host' && LS.get('tb.host')) return hostMain()
   return homeMain()
