@@ -421,3 +421,29 @@ button.grp-title:hover:not(:disabled) { color: var(--c); }
 .js .seo { display: none; }
 .seo { max-width: 46rem; }
 .qr-full .qr-box svg { width: min(54vh, 86vw); }
+
+/* strona główna: górny rząd (dołącz / otwarta tablica) + szeroki panel „Nowa tablica” z akordeonem */
+.home .kicker a { color: var(--dim); text-decoration: none; }
+.home .kicker a:hover { color: var(--accent); }
+.panels { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.panel.newb { margin-top: 16px; gap: .2rem; }
+.acc { border-top: 1px solid var(--line); }
+.acc:first-of-type { border-top: 0; }
+.acc > summary {
+  list-style: none; cursor: pointer; padding: .7rem 0; display: flex; align-items: center; gap: .6rem;
+  font: 600 1.1rem/1.3 var(--serif); color: var(--ink);
+}
+.acc > summary::-webkit-details-marker { display: none; }
+.acc > summary::before { content: "▸"; font: 14px var(--mono); color: var(--muted); transition: transform .15s; }
+.acc[open] > summary::before { transform: rotate(90deg); }
+.acc > summary:hover { color: var(--accent); }
+.acc > summary:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.acc .tpl { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.acc .tpl button { height: 100%; }
+.acc .loadfile { margin: .7rem 0 .9rem; }
+.acc .blank { display: grid; gap: .7rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); align-items: end; padding-bottom: .9rem; }
+.acc .blank .pri { grid-column: 1 / -1; justify-self: start; }
+.home .kicker a { white-space: nowrap; }
+.privacy p { margin: 0; line-height: 1.55; }
+.privacy b { font-weight: 500; }
+.home .lead .amber { color: var(--muted); font-style: normal; font-weight: 400; }

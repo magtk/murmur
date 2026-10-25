@@ -3,6 +3,12 @@
 All notable changes to murmur are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [SemVer](https://semver.org/).
 
+## [1.2.1] - 2026-10-25
+
+### Changed
+- Start page layout: *Join a board* and *Open board* side by side; *New board* as one wide panel with an accordion (*From a template* in a multi-column grid, *Blank board* collapsed).
+- `[ magtk ]` on the start page links to https://magtk.github.io/.
+
 ## [1.2.0] - 2026-10-25
 
 ### Added
@@ -44,6 +50,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [S
 - Peer-to-peer, no backend (WebRTC via Trystero, Nostr signalling); instructor verification by ECDSA key fingerprint.
 - PolyForm Noncommercial 1.0.0 licence; commercial licence on request.
 
+[1.2.1]: https://github.com/magtk/murmur/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/magtk/murmur/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/magtk/murmur/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/magtk/murmur/releases/tag/v1.0.0

@@ -22,7 +22,8 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.2.0'
+const APP_VERSION = '1.2.3'
+const CONTACT_URL = 'https://magt.pro/#contact'
 const REPO_URL = 'https://github.com/magtk/murmur'
 // czas życia tablicy: liczony od ostatniej zmiany; po terminie pytamy, po kolejnych 7 dniach usuwamy
 const TTL_OPTIONS = [7, 14, 21, 30]
@@ -1260,9 +1261,9 @@ async function homeMain() {
   const tplBox = h('div', { class: 'tpl' }, h('p', { class: 'hint', text: T('loadingList') }))
   const lead = T('lead')
   $('#main').replaceChildren(h('div', { class: 'home' },
-    h('p', { class: 'kicker' }, h('span', { text: T('kicker') }), h('span', { text: '[ magtk ]' })),
+    h('p', { class: 'kicker' }, h('span', { text: T('kicker') }), h('a', { href: 'https://magtk.github.io/', title: 'MagTk lab', text: '[ magtk ]' })),
     h('h1', {}, logoEl('logo-h1'), BRAND),
-    h('p', { class: 'lead' }, h('em', { text: lead[0] }), lead[1], h('strong', { text: lead[2] }), '.', h('br'), lead[3]),
+    h('p', { class: 'lead' }, h('em', { text: lead[0] }), lead[1], h('strong', { text: lead[2] }), '.', h('br'), lead[3], h('br'), h('span', { class: 'amber', text: lead[4] })),
     h('div', { class: 'panels' },
       h('div', { class: 'panel join' },
         h('h2', { text: T('joinTitle') }),
@@ -1282,17 +1283,25 @@ async function homeMain() {
         h('p', { class: 'cont-meta' + (daysLeft(cur) <= 3 ? ' exp' : ''), text: daysLeft(cur) > 0 ? T('homeExp', daysLeft(cur)) : T('expiredShort') }),
         h('div', { style: 'display:flex;gap:.5rem;flex-wrap:wrap' },
           h('button', { class: 'pri', onclick: () => { location.hash = 'host' }, text: T('back') }))),
-      h('div', { class: 'panel' },
-        h('h2', { text: T('newBoard') }),
-        h('label', { class: 'stack' }, T('title'), title),
-        h('label', { class: 'stack' }, T('secsLbl'), secs),
-        h('button', { class: 'pri', onclick: () => startHostWith({ title: title.value, sections: secs.value.split('\n').map(s => s.trim()).filter(Boolean) }), text: T('create') })),
-      h('div', { class: 'panel' },
-        h('h2', { text: T('fromTpl') }), tplBox,
-        h('button', { onclick: async () => { const f = await pickFile(); if (!f) return; try { startHostWith(normBoard(JSON.parse(await f.text()))) } catch { toast(T('badFile')) } }, text: T('loadDisk') }))),
+    ),
+    // nowa tablica: jeden szeroki panel z akordeonem (szablony / pusta tablica)
+    h('section', { class: 'panel newb' },
+      h('h2', { text: T('newBoard') }),
+      h('details', { class: 'acc', open: true },
+        h('summary', { text: T('fromTpl') }),
+        tplBox,
+        h('button', { class: 'loadfile', onclick: async () => { const f = await pickFile(); if (!f) return; try { startHostWith(normBoard(JSON.parse(await f.text()))) } catch { toast(T('badFile')) } }, text: T('loadDisk') })),
+      h('details', { class: 'acc' },
+        h('summary', { text: T('accBlank') }),
+        h('div', { class: 'blank' },
+          h('label', { class: 'stack' }, T('title'), title),
+          h('label', { class: 'stack' }, T('secsLbl'), secs),
+          h('button', { class: 'pri', onclick: () => startHostWith({ title: title.value, sections: secs.value.split('\n').map(s => s.trim()).filter(Boolean) }), text: T('create') })))),
     h('p', { class: 'home-foot' }, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
       h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
-      ' · ', T('licence'))))
+      ' · ', T('licenceFree'), ' · ', T('licenceCommercial'), ' ',
+      h('a', { href: CONTACT_URL, target: '_blank', rel: 'noopener', text: T('licenceAsk') }),
+      ' · ', h('a', { href: '#', onclick: e => { e.preventDefault(); privacyDialog() }, text: T('privacy') }))))
   try {
     const r = await fetch('boards/index.json', { cache: 'no-cache' })
     if (!r.ok) throw 0
@@ -1300,6 +1309,10 @@ async function homeMain() {
     if (!list.length) throw 0
     tplBox.replaceChildren(...list.map(x => h('button', { onclick: () => loadTemplate('boards/' + x.file) }, x.title, x.desc && h('small', { text: x.desc }))))
   } catch { tplBox.replaceChildren(h('p', { class: 'hint', text: T('noTpl') })) }
+}
+function privacyDialog() {
+  openDialog(T('privacy'), h('div', { class: 'stack privacy' },
+    T('privacyBody').map(([b, t]) => h('p', {}, h('b', { text: b }), ' ', t))))
 }
 async function loadTemplate(path) {
   try {
