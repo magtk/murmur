@@ -22,8 +22,8 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.2.3'
-const CONTACT_URL = 'https://magt.pro/#contact'
+const APP_VERSION = '1.2.4'
+const CONTACT_URL = 'mailto:magtk@duck.com?subject=' + encodeURIComponent('murmur – licencja komercyjna / commercial licence')
 const REPO_URL = 'https://github.com/magtk/murmur'
 // czas życia tablicy: liczony od ostatniej zmiany; po terminie pytamy, po kolejnych 7 dniach usuwamy
 const TTL_OPTIONS = [7, 14, 21, 30]

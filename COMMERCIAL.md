@@ -18,7 +18,7 @@ To licencja z kodem dostępnym publicznie (*source-available*), a nie *open sour
 - używać go w firmie w celach zarobkowych,
 - sprzedawać murmur, jego kopię lub zmodyfikowaną wersję albo oferować go jako płatną usługę.
 
-**Kontakt:** przez profil [github.com/magtk](https://github.com/magtk) (zgłoszenie w repozytorium murmur).
+**Kontakt:** [magtk@duck.com](mailto:magtk@duck.com?subject=murmur%20%E2%80%93%20licencja%20komercyjna).
 Napisz krótko, kim jesteś i do czego chcesz użyć narzędzia.
 
 ## EN
@@ -39,7 +39,7 @@ It is *source-available*, not *open source* in the OSI sense.
 - use it within a company for profit-making purposes,
 - sell murmur, a copy or a modified version of it, or offer it as a paid service.
 
-**Contact:** via [github.com/magtk](https://github.com/magtk) (open an issue in the murmur repository).
+**Contact:** [magtk@duck.com](mailto:magtk@duck.com?subject=murmur%20%E2%80%93%20commercial%20licence).
 Briefly describe who you are and how you want to use the tool.
 
 ---

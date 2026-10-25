@@ -1,6 +1,8 @@
 # murmur
 
-> Every voice matters · Każdy głos ma znaczenie. A free, browser-only classroom board for lectures, seminars and webinars that lets instructors hear students who don't speak up. Participants join via QR code, link or a 10-character code (e.g. K7M2P-9XQ4R) — no account, anonymous by default — and drop questions, doubts, ideas and quick reactions as cards.
+> Every voice matters · Każdy głos ma znaczenie. A free, browser-only classroom board for lectures, seminars and webinars — so that those who usually don't speak up can have their say too. Participants join via QR code, link or a 10-character code (e.g. K7M2P-9XQ4R) — no account, anonymous by default — and drop questions, doubts, ideas and quick reactions as cards.
+
+No accounts, no server, no cookies, no tracking or profiling.
 
 Author: MagTk (https://github.com/magtk). License: PolyForm Noncommercial 1.0.0 — free for education, individuals and non-profits; commercial use requires a separate licence. Interface: Polish and English.
 

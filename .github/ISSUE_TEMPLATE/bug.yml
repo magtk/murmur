@@ -1,0 +1,62 @@
+name: "🐞 Błąd / Bug"
+description: "Coś nie działa tak, jak powinno. / Something doesn't work as it should."
+title: "[Błąd] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dziękuję za zgłoszenie! / Thanks for reporting!
+
+        **Nie wklejaj linku ani kodu tablicy** — to klucz dostępu do niej. / **Don't paste the board link or code** — it grants access.
+
+        Jeśli uczestnik długo widzi „łączenie…”, sprawdź najpierw sekcję *Ograniczenia* w README (sieci uczelniane czasem blokują P2P).
+        If a participant keeps seeing "connecting…", check *Limitations* in the README first (campus networks sometimes block P2P).
+  - type: textarea
+    id: what
+    attributes:
+      label: "Co się stało? / What happened?"
+      placeholder: "Np. po kliknięciu „Pokaż wyniki” uczestnicy nie widzą wyników quizu."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Jak to powtórzyć? / Steps to reproduce"
+      placeholder: |
+        1. Utwórz tablicę z szablonu…
+        2. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Czego się spodziewałaś/eś? / What did you expect?"
+  - type: dropdown
+    id: role
+    attributes:
+      label: "Kto miał problem? / Who had the problem?"
+      options:
+        - "Prowadzący / Instructor"
+        - "Uczestnik / Participant"
+        - "Oboje / Both"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: "Urządzenie i przeglądarka / Device and browser"
+      placeholder: "Np. Android 15, Chrome 141 · Windows 11, Firefox 144 · iPhone, Safari"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "Wersja murmur / murmur version"
+      description: "Widać w stopce strony głównej, np. v1.2.3. / Shown in the start-page footer, e.g. v1.2.3."
+      placeholder: "v1.2.3"
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Zrzuty ekranu, komunikaty z konsoli (opcjonalnie) / Screenshots, console messages (optional)"
+      description: "Zrzut możesz wkleić bezpośrednio tutaj. Zakryj treść kartek, jeśli jest prywatna. / You can paste screenshots here. Hide card content if it is private."

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "💼 Licencja komercyjna / Commercial licence"
+    url: https://github.com/magtk/murmur/blob/main/COMMERCIAL.md
+    about: "Płatne szkolenia, firmy, odsprzedaż — napisz na magtk@duck.com. / Paid trainings, companies, resale — e-mail magtk@duck.com."
+  - name: "🔒 Podatność bezpieczeństwa / Security vulnerability"
+    url: https://github.com/magtk/murmur/security/advisories/new
+    about: "Zgłoś prywatnie, nie w publicznym zgłoszeniu. / Report privately, not in a public issue."

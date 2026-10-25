@@ -4,7 +4,7 @@
 
 **Każdy głos ma znaczenie. · *Every voice matters.***
 
-Narzędzie na zajęcia, wykłady i webinary, które pozwala usłyszeć także tych, którzy nie zabierają głosu.
+Narzędzie na zajęcia, wykłady i webinary — by także ci, którzy zwykle nie zabierają głosu, mogli się wypowiedzieć.
 Uczestnicy wchodzą przez link albo kod QR, bez konta, i dorzucają pytania, wątpliwości, pomysły
 i krótkie reakcje na kartkach w sekcjach. Mogą głosować ▲ i odpowiadać na krótkie quizy
 (jednokrotny lub wielokrotny wybór). Domyślnie wszystko jest anonimowe.
@@ -32,6 +32,7 @@ Działa wyłącznie w przeglądarce (GitHub Pages), **bez backendu i bez bazy da
 - [Test lokalny](#test-lokalny)
 - [Dostępność](#dostępność)
 - [Ograniczenia](#ograniczenia)
+- [Zgłoszenia i pomysły](#zgłoszenia-i-pomysły)
 - [Licencje i autorstwo](#licencje-i-autorstwo)
 
 ---
@@ -129,7 +130,7 @@ Zapisany `.json` można później wczytać (*Więcej → Wczytaj tablicę z plik
 
 ## Bezpieczeństwo i prywatność
 
-- **Brak serwera aplikacji, bazy, kont, ciasteczek i analityki.** Treść tablicy istnieje tylko w przeglądarce prowadzącej (`localStorage`) i w pamięci przeglądarek uczestników.
+- **Brak serwera aplikacji, bazy, kont, cookies i analityki.** Okienko zgody na cookies nie jest potrzebne: aplikacja zapisuje w `localStorage` wyłącznie dane niezbędne do działania usługi, o którą prosi użytkownik (tablica, losowy identyfikator uczestnika, język, motyw, ostatni widok tablicy), a nie do śledzenia. Pełna informacja dla użytkowników jest pod linkiem *Prywatność* w stopce strony głównej. Treść tablicy istnieje tylko w przeglądarce prowadzącej (`localStorage`) i w pamięci przeglądarek uczestników.
 - **Część linku po `#` nie jest wysyłana** do GitHub Pages ani nigdzie indziej. Kto ma link, może dołączyć, więc link jest jedynym „uprawnieniem”. Na nową grupę twórz nową sesję.
 - **Tryb anonimowy (domyślny):** podpis nie jest zapisywany ani eksportowany. Prowadząca nie wie, kto co napisał. Widzi jedynie, że kilka kartek pochodzi od tej samej, nienazwanej osoby, bo do uprawnień (edycja własnych kartek, jeden głos) używany jest skrót SHA-256 losowego identyfikatora przeglądarki.
 - **Tryb pseudonimów:** zapisywany jest pseudonim, który uczestnik sam wybiera albo losuje.
@@ -177,6 +178,8 @@ murmur/
 ├── LICENSE.md            licencja PolyForm Noncommercial 1.0.0
 ├── COMMERCIAL.md         kiedy potrzebna licencja komercyjna (PL/EN)
 ├── CHANGELOG.md          historia zmian (wersje)
+├── SECURITY.md           jak zgłaszać podatności
+├── .github/ISSUE_TEMPLATE/  formularze zgłoszeń (błąd, pomysł) PL/EN
 ├── llms.txt              opis dla wyszukiwarek i asystentów AI
 ├── sitemap.xml           mapa strony dla wyszukiwarek
 ├── robots.txt            wzór do skopiowania do katalogu głównego domeny
@@ -315,6 +318,14 @@ B9CB 0694 3586 FD0B 0D7E A67D 76CB B743 63C9 1CBD
 
 Verify / weryfikacja: `git log --show-signature`
 
+## Zgłoszenia i pomysły
+
+- **Błąd albo pomysł:** [Issues](https://github.com/magtk/murmur/issues/new/choose) → wybierz *Błąd* lub *Pomysł* (potrzebne konto GitHub). Nie wklejaj linku ani kodu tablicy.
+- **Podatność bezpieczeństwa:** zgłoś **prywatnie**, zasady w [`SECURITY.md`](SECURITY.md).
+- **Licencja komercyjna:** [magtk@duck.com](mailto:magtk@duck.com).
+
+murmur rozwijam po godzinach: zgłoszenia czytam, ale bez gwarancji terminu.
+
 ## Licencje i autorstwo
 
 **© 2026 magtk. Licencja: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/)** (pełny tekst w `LICENSE.md`).
@@ -329,7 +340,7 @@ To licencja *source-available*: kod jest publiczny, ale nie jest to *open source
 | Użycie w firmie w celach zarobkowych | | ✓ |
 | Sprzedaż, odsprzedaż, płatna usługa oparta na murmur | | ✓ |
 
-Szczegóły i kontakt w sprawie licencji komercyjnej: `COMMERCIAL.md` (PL/EN).
+Szczegóły: `COMMERCIAL.md` (PL/EN). Licencja komercyjna, czyli zapytanie o warunki: [magtk@duck.com](mailto:magtk@duck.com).
 Przy kopiowaniu lub modyfikacji zachowaj `LICENSE.md` i linię `Required Notice`.
 
 Pozostałe:

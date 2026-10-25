@@ -1,0 +1,33 @@
+name: "💡 Pomysł / Idea"
+description: "Propozycja nowej funkcji albo zmiany. / A new feature or change."
+title: "[Pomysł] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        murmur ma zostać prosty: tymczasowe tablice, bez kont i bez serwera. Pomysły, które tego wymagają, raczej nie wejdą — ale chętnie o nich przeczytam.
+        murmur aims to stay simple: temporary boards, no accounts, no server. Ideas that need those are unlikely to land — but I'm happy to read them.
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Jaki problem rozwiązuje? / What problem does it solve?"
+      placeholder: "Np. na webinarze z 60 osobami nie widzę, kto jeszcze nie odpowiedział na quiz."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "Jak to mogłoby działać? / How could it work?"
+    validations:
+      required: true
+  - type: dropdown
+    id: context
+    attributes:
+      label: "Gdzie byś tego używać? / Where would you use it?"
+      multiple: true
+      options:
+        - "Wykład / Lecture"
+        - "Ćwiczenia, laboratorium / Seminar, lab"
+        - "Webinar, zajęcia online / Webinar, online class"
+        - "Inne / Other"
