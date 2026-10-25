@@ -8,6 +8,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [S
 ### Added
 - Issue forms (bug, idea) in Polish and English; blank issues disabled; links to commercial-licence info and private vulnerability reporting.
 - `SECURITY.md`: how to report vulnerabilities privately, scope, supported versions.
+- `CONTRIBUTING.md` and a pull request template: issue-first workflow, contribution licence terms (needed for dual licensing).
 
 ### Changed
 - Commercial-licence and security contact is now e-mail: magtk@duck.com (start-page footer, `COMMERCIAL.md`, README, `SECURITY.md`).

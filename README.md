@@ -179,6 +179,7 @@ murmur/
 ├── COMMERCIAL.md         kiedy potrzebna licencja komercyjna (PL/EN)
 ├── CHANGELOG.md          historia zmian (wersje)
 ├── SECURITY.md           jak zgłaszać podatności
+├── CONTRIBUTING.md       zasady wkładu i licencja wkładu (PL/EN)
 ├── .github/ISSUE_TEMPLATE/  formularze zgłoszeń (błąd, pomysł) PL/EN
 ├── llms.txt              opis dla wyszukiwarek i asystentów AI
 ├── sitemap.xml           mapa strony dla wyszukiwarek
@@ -323,6 +324,7 @@ Verify / weryfikacja: `git log --show-signature`
 - **Błąd albo pomysł:** [Issues](https://github.com/magtk/murmur/issues/new/choose) → wybierz *Błąd* lub *Pomysł* (potrzebne konto GitHub). Nie wklejaj linku ani kodu tablicy.
 - **Podatność bezpieczeństwa:** zgłoś **prywatnie**, zasady w [`SECURITY.md`](SECURITY.md).
 - **Licencja komercyjna:** [magtk@duck.com](mailto:magtk@duck.com).
+- **Chcesz dopisać kod?** Najpierw Issue, potem pull request — zasady i licencja wkładu w [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 murmur rozwijam po godzinach: zgłoszenia czytam, ale bez gwarancji terminu.
 
