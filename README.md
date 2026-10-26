@@ -328,6 +328,12 @@ Verify / weryfikacja: `git log --show-signature`
 
 murmur rozwijam po godzinach: zgłoszenia czytam, ale bez gwarancji terminu.
 
+## Wsparcie / Support
+
+murmur jest i pozostanie bezpłatny dla edukacji. Jeśli Ci się przydaje, może [☕ postawisz mi kawę](https://ko-fi.com/magtk), by wesprzeć rozwój moich projektów? Dobrowolnie, bez zobowiązań i bez wpływu na licencję.
+
+*murmur is and will stay free for education. If it is useful to you, maybe [☕ buy me a coffee](https://ko-fi.com/magtk) to support the development of my projects? Voluntary, no strings attached, no effect on the licence.*
+
 ## Licencje i autorstwo
 
 **© 2026 magtk. Licencja: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/)** (pełny tekst w `LICENSE.md`).

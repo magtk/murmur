@@ -3,6 +3,11 @@
 All notable changes to murmur are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [SemVer](https://semver.org/).
 
+## [1.2.5] - 2026-10-26
+
+### Added
+- Voluntary support line on the start page ("If murmur is useful to you, maybe buy me a coffee…", Ko-fi), README and the GitHub Sponsor button (`.github/FUNDING.yml`). Plain link only: no Ko-fi scripts or widgets are loaded; mentioned in the privacy note.
+
 ## [1.2.4] - 2026-10-26
 
 ### Added
@@ -74,6 +79,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [S
 - Peer-to-peer, no backend (WebRTC via Trystero, Nostr signalling); instructor verification by ECDSA key fingerprint.
 - PolyForm Noncommercial 1.0.0 licence; commercial licence on request.
 
+[1.2.5]: https://github.com/magtk/murmur/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/magtk/murmur/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/magtk/murmur/compare/v1.2.0...v1.2.3
 [1.2.2]: https://github.com/magtk/murmur/compare/v1.2.1...v1.2.2

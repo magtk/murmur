@@ -22,9 +22,10 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.2.4'
+const APP_VERSION = '1.2.5'
 const CONTACT_URL = 'mailto:magtk@duck.com?subject=' + encodeURIComponent('murmur – licencja komercyjna / commercial licence')
 const REPO_URL = 'https://github.com/magtk/murmur'
+const KOFI_URL = 'https://ko-fi.com/magtk' // zwykły link — bez widżetu i skryptów Ko-fi (zero śledzenia)
 // czas życia tablicy: liczony od ostatniej zmiany; po terminie pytamy, po kolejnych 7 dniach usuwamy
 const TTL_OPTIONS = [7, 14, 21, 30]
 const DAY = 864e5
@@ -1297,6 +1298,7 @@ async function homeMain() {
           h('label', { class: 'stack' }, T('title'), title),
           h('label', { class: 'stack' }, T('secsLbl'), secs),
           h('button', { class: 'pri', onclick: () => startHostWith({ title: title.value, sections: secs.value.split('\n').map(s => s.trim()).filter(Boolean) }), text: T('create') })))),
+    h('p', { class: 'home-support' }, T('supportPre'), h('a', { class: 'kofi', href: KOFI_URL, target: '_blank', rel: 'noopener', title: T('supportHint'), text: T('support') }), T('supportPost')),
     h('p', { class: 'home-foot' }, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
       h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
       ' · ', T('licenceFree'), ' · ', T('licenceCommercial'), ' ',

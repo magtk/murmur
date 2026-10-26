@@ -387,6 +387,9 @@ button.grp-title:hover:not(:disabled) { color: var(--c); }
 
 .home-foot { margin: 2.2rem 0 0; padding-top: .8rem; border-top: 1px solid color-mix(in srgb, var(--rule) 45%, transparent); font-size: 11px; letter-spacing: .06em; color: var(--dim); }
 .home-foot a { color: var(--muted); }
+.home-support { margin: 2.2rem 0 0; font-size: 13px; color: var(--muted); }
+.home-support .kofi { color: var(--accent); white-space: nowrap; }
+.home-support + .home-foot { margin-top: .8rem; }
 
 .menu-pop { max-width: calc(100vw - 16px); }
 
