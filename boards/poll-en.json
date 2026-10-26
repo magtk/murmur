@@ -1,0 +1,14 @@
+{
+  "title": "Poll",
+  "sections": [{ "title": "Comments & questions" }],
+  "quizzes": [
+    { "title": "Yes / no", "poll": true, "questions": [
+      { "text": "Is the pace of today's class right for you?", "multi": false, "options": ["Yes", "No"] } ] },
+    { "title": "1 of 2", "poll": true, "questions": [
+      { "text": "What should we start with?", "multi": false, "options": ["Theory", "A hands-on example"] } ] },
+    { "title": "1 of 3", "poll": true, "questions": [
+      { "text": "How well do you understand the topic?", "multi": false, "options": ["I understand it", "Partly", "I don't understand it"] } ] },
+    { "title": "Several options", "poll": true, "questions": [
+      { "text": "Which topics should we review before the test? Select all that apply.", "multi": true, "options": ["Topic A", "Topic B", "Topic C", "Topic D"] } ] }
+  ]
+}

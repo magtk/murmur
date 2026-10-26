@@ -252,7 +252,8 @@ dialog h3 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1
 .qed .opt input[type=radio], .qed .opt input[type=checkbox], .qed .chk input { accent-color: var(--accent); }
 .qed .row { display: flex; gap: .4rem; flex-wrap: wrap; }
 .qed .chk { display: flex; gap: .45rem; align-items: center; font-size: 12px; }
-.qed > label { display: flex; flex-direction: column; gap: .3rem; margin-bottom: .75rem; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+.qed > .chk { margin-bottom: .75rem; }
+.qed > label:not(.chk) { display: flex; flex-direction: column; gap: .3rem; margin-bottom: .75rem; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
 
 /* ---------- ekran startowy ---------- */
 .home { max-width: 980px; margin: 0 auto; padding: 2.2rem 1.1rem 2rem; }

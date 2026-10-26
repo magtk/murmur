@@ -22,7 +22,7 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.2.5'
+const APP_VERSION = '1.3.0'
 const CONTACT_URL = 'mailto:magtk@duck.com?subject=' + encodeURIComponent('murmur – licencja komercyjna / commercial licence')
 const REPO_URL = 'https://github.com/magtk/murmur'
 const KOFI_URL = 'https://ko-fi.com/magtk' // zwykły link — bez widżetu i skryptów Ko-fi (zero śledzenia)
@@ -177,8 +177,10 @@ function normQuiz(q = {}) {
       const options = (Array.isArray(qq.options) ? qq.options : []).map(o => typeof o === 'string'
         ? { id: uid(), text: clean(o.replace(/^\*\s*/, ''), 200), ok: o.startsWith('*') }
         : { id: clean(o.id, 40) || uid(), text: clean(o.text, 200), ok: !!o.ok })
+      if (q.poll) options.forEach(o => { o.ok = false })
       return { id: clean(qq.id, 40) || uid(), text: clean(qq.text, 500), multi: qq.multi ?? options.filter(o => o.ok).length > 1, options }
     }),
+    poll: !!q.poll, // głosowanie/ankieta: bez poprawnych odpowiedzi
     answers: q.answers && typeof q.answers === 'object' && !Array.isArray(q.answers) ? q.answers : {},
   }
 }
@@ -540,13 +542,13 @@ function markdown(m) {
   }
   for (const q of m.quizzes || []) {
     const res = q.results
-    L.push(`## Quiz: ${q.title}`, '')
+    L.push(`## ${q.poll ? T('mdPoll') : 'Quiz'}: ${q.title}`, '')
     q.questions.forEach((qq, i) => {
       const r = res?.[qq.id] || {}, tot = r._n || 0
       L.push(`### ${i + 1}. ${qq.text}${qq.multi ? T('mdMulti') : ''}`, '')
       for (const o of qq.options) {
         const n = r[o.id] || 0
-        L.push(`- [${o.ok ? 'x' : ' '}] ${o.text}${res ? ` — ${n} (${tot ? Math.round(100 * n / tot) : 0}%)` : ''}`)
+        L.push(`- ${q.poll ? '' : `[${o.ok ? 'x' : ' '}] `}${o.text}${res ? ` — ${n} (${tot ? Math.round(100 * n / tot) : 0}%)` : ''}`)
       }
       if (res) L.push('', T('mdAnswers', tot))
       L.push('')
@@ -1019,7 +1021,7 @@ function templateOf(b) {
   return {
     title: b.title, sections: b.sections.map(({ title, color }) => ({ title, color })),
     settings: b.settings,
-    quizzes: b.quizzes.map(q => ({ title: q.title, questions: q.questions.map(qq => ({ text: qq.text, multi: qq.multi, options: qq.options.map(o => ({ text: o.text, ok: o.ok })) })) })),
+    quizzes: b.quizzes.map(q => ({ title: q.title, ...(q.poll ? { poll: true } : {}), questions: q.questions.map(qq => ({ text: qq.text, multi: qq.multi, options: qq.options.map(o => ({ text: o.text, ok: o.ok })) })) })),
   }
 }
 function hostMd() {
@@ -1068,7 +1070,7 @@ function renderHostQuiz() {
     live && st === 'closed' && h('button', { onclick: () => set('open'), text: T('reopen') }),
     live && st !== 'shown' && h('button', { class: st === 'closed' ? 'pri' : '', onclick: () => set('shown'), text: T('showRes') }),
     live && st === 'shown' && h('button', { onclick: () => set('closed'), text: T('hideRes') }),
-    live && h('button', { onclick: () => set(null), text: T('endQuiz') }),
+    live && h('button', { onclick: () => set(null), text: T(q.poll ? 'endPoll' : 'endQuiz') }),
     q && h('button', { disabled: !Object.keys(q.answers).length, onclick: () => { if (confirm(T('confirmClearAns'))) { q.answers = {}; hostChanged() } }, text: T('clearAns') }),
     !L && h('button', { class: 'ic', title: T('collapse'), onclick: () => { H.showQuiz = false; hostTop(); renderHostQuiz() }, text: '×' }))
   if (!q) {
@@ -1090,21 +1092,27 @@ function editQuiz(q) {
   const body = h('div', { class: 'qed' })
   const draw = () => body.replaceChildren(
     h('label', {}, T('title'), h('input', { value: q.title, maxlength: 120, oninput: e => { q.title = clean(e.target.value, 120); hostSave() } })),
-    q.questions.map((qq, i) => h('fieldset', {},
+    h('label', { class: 'chk' }, h('input', { type: 'checkbox', checked: !!q.poll, onchange: e => {
+      q.poll = e.target.checked
+      if (q.poll) q.questions.forEach(qq => qq.options.forEach(o => { o.ok = false }))
+      else q.questions.forEach(qq => { if (!qq.options.some(o => o.ok)) qq.options[0].ok = true })
+      draw()
+    } }), T('pollChk')),
+    ...q.questions.map((qq, i) => h('fieldset', {},
       h('legend', { text: T('questionN', i + 1) }),
       h('textarea', { rows: 2, maxlength: 500, placeholder: T('qText'), oninput: e => { qq.text = clean(e.target.value, 500); hostSave() } }, qq.text),
       h('label', { class: 'chk' }, h('input', { type: 'checkbox', checked: qq.multi, onchange: e => { qq.multi = e.target.checked; if (!qq.multi) { let seen = false; for (const o of qq.options) { if (o.ok && seen) o.ok = false; if (o.ok) seen = true } } draw() } }), T('multiChk')),
       qq.options.map((o, j) => h('div', { class: 'opt' },
-        h('input', { type: qq.multi ? 'checkbox' : 'radio', name: 'ok-' + qq.id, checked: o.ok, title: T('correct'), 'aria-label': T('correctShort'), onchange: e => { if (!qq.multi) qq.options.forEach(x => { x.ok = false }); o.ok = e.target.checked; hostSave() } }),
+        !q.poll && h('input', { type: qq.multi ? 'checkbox' : 'radio', name: 'ok-' + qq.id, checked: o.ok, title: T('correct'), 'aria-label': T('correctShort'), onchange: e => { if (!qq.multi) qq.options.forEach(x => { x.ok = false }); o.ok = e.target.checked; hostSave() } }),
         h('input', { type: 'text', value: o.text, maxlength: 200, placeholder: T('answerN', j + 1), oninput: e => { o.text = clean(e.target.value, 200); hostSave() } }),
         h('button', { type: 'button', class: 'ic', title: T('delAnswer'), disabled: qq.options.length <= 2, onclick: () => { qq.options.splice(j, 1); draw() }, text: '×' }))),
       h('div', { class: 'row' },
         h('button', { type: 'button', disabled: qq.options.length >= 8, onclick: () => { qq.options.push({ id: uid(), text: '', ok: false }); draw() }, text: T('addAnswer') }),
         h('button', { type: 'button', onclick: () => { q.questions.splice(i, 1); draw() }, text: T('delQuestion') })))),
-    h('button', { type: 'button', onclick: () => { q.questions.push(newQuestion()); draw() }, text: T('addQuestion') }),
-    h('p', { class: 'hint', text: T('quizHint') }))
+    h('button', { type: 'button', onclick: () => { const nq = newQuestion(); if (q.poll) nq.options.forEach(o => { o.ok = false }); q.questions.push(nq); draw() }, text: T('addQuestion') }),
+    h('p', { class: 'hint', text: T(q.poll ? 'pollHint' : 'quizHint') }))
   draw()
-  const d = openDialog(T('quizEdit'), body, [[T('done'), null, 'pri']])
+  const d = openDialog(T(q.poll ? 'pollEdit' : 'quizEdit'), body, [[T('done'), null, 'pri']])
   d.onclose = () => hostChanged()
 }
 

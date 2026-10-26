@@ -1,0 +1,14 @@
+{
+  "title": "Głosowanie",
+  "sections": [{ "title": "Uwagi i pytania" }],
+  "quizzes": [
+    { "title": "Tak / nie", "poll": true, "questions": [
+      { "text": "Czy tempo dzisiejszych zajęć jest odpowiednie?", "multi": false, "options": ["Tak", "Nie"] } ] },
+    { "title": "1 z 2", "poll": true, "questions": [
+      { "text": "Od czego zaczynamy?", "multi": false, "options": ["Teoria", "Przykład praktyczny"] } ] },
+    { "title": "1 z 3", "poll": true, "questions": [
+      { "text": "Jak oceniasz swoje zrozumienie tematu?", "multi": false, "options": ["Rozumiem", "Częściowo", "Nie rozumiem"] } ] },
+    { "title": "Kilka opcji", "poll": true, "questions": [
+      { "text": "Które tematy powtórzyć przed kolokwium? Zaznacz wszystkie pasujące.", "multi": true, "options": ["Temat A", "Temat B", "Temat C", "Temat D"] } ] }
+  ]
+}

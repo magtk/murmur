@@ -24,6 +24,12 @@
     "lang": "pl"
   },
   {
+    "file": "glosowanie.json",
+    "title": "Głosowanie (ankieta)",
+    "desc": "Tak/nie, 1 z 2, 1 z 3, kilka opcji — bez poprawnych odpowiedzi, wyniki na żywo",
+    "lang": "pl"
+  },
+  {
     "file": "tylko-quiz.json",
     "title": "Szybki quiz (bez tablicy)",
     "desc": "Sam quiz: 1 pytanie jednokrotne, 1 wielokrotne",
@@ -45,6 +51,12 @@
     "file": "quick-quiz-en.json",
     "title": "Quick quiz (no board)",
     "desc": "Quiz only: 1 single-choice, 1 multiple-choice question",
+    "lang": "en"
+  },
+  {
+    "file": "poll-en.json",
+    "title": "Poll (survey)",
+    "desc": "Yes/no, 1 of 2, 1 of 3, several options — no correct answers, live results",
     "lang": "en"
   }
 ]

@@ -76,6 +76,7 @@ Przed pierwszymi zajęciami w nowej sali zrób jedną próbę: laptop plus telef
 | **Głosowanie** | ▲ jeden głos na kartkę na osobę. Sortowanie: najnowsze / najstarsze / najwięcej głosów. |
 | **Grupowanie** | Przeciąganie za uchwyt ⠿ (mysz i dotyk). Na kartkę tworzy grupę, na sekcję przenosi. Nazwy grup, suma głosów. Domyślnie tylko prowadząca; opcjonalnie wszyscy. |
 | **Quizy** | 1–n pytań jednokrotnego lub wielokrotnego wyboru. Start / zamknij / pokaż wyniki z poprawnymi odpowiedziami, opcjonalny limit czasu z automatycznym pokazaniem wyników. |
+| **Głosowania (ankiety)** | Quiz bez poprawnych odpowiedzi: tak/nie, 1 z 2, 1 z 3 (jeden wybór) albo kilka opcji. Wyniki pokazują tylko rozkład głosów. Przełącznik „głosowanie / ankieta” w edycji quizu. |
 | **Licznik** | `18 osób · ✎ 12`: połączeni oraz ile **osób** (nie kartek) już coś dorzuciło. Uczestnicy widzą dyskretne `✎ 12`. |
 | **Eksport** | `.json` (całość lub szablon), `.md` (z grupami i wynikami quizów), `.png`, druk/PDF. |
 | **Język** | PL / EN, osobno dla każdej osoby. Domyślnie język przeglądarki, a `?lang=en` wymusza angielski. |
@@ -230,6 +231,14 @@ Format (pola opcjonalne można pominąć):
         { "text": "Jednokrotny wybór", "options": ["A", "*B poprawna", "C"] },
         { "text": "Wielokrotny wybór", "options": ["*A", "*B", "C"] }
       ]
+    },
+    {
+      "title": "Głosowanie",
+      "poll": true,
+      "questions": [
+        { "text": "Tak czy nie?", "options": ["Tak", "Nie"] },
+        { "text": "Zaznacz wszystkie pasujące", "multi": true, "options": ["A", "B", "C"] }
+      ]
     }
   ]
 }
@@ -237,6 +246,7 @@ Format (pola opcjonalne można pominąć):
 
 - `color`: `amber` (złoty), `green`, `rose` (pomarańczowy), `teal`, `violet`, `sky`
 - `*` na początku odpowiedzi oznacza poprawną; więcej niż jedna poprawna daje automatycznie wielokrotny wybór (można wymusić `"multi": true/false`)
+- `poll: true`: głosowanie/ankieta — bez poprawnych odpowiedzi (`*` jest ignorowana), wyniki bez ✓; wielokrotny wybór ustaw przez `"multi": true`
 - `showNames`: `false` = anonimowo (domyślnie), `true` = pseudonimy
 - `hidden`: `true` = start z ukrytymi kartkami
 - `drag`: `host` (domyślnie) albo `all`, czyli kto może grupować i przenosić
@@ -245,7 +255,7 @@ Format (pola opcjonalne można pominąć):
 Eksport „Zapisz całość (.json)” też jest poprawnym plikiem do wczytania, więc można kontynuować pracę na następnych zajęciach.
 
 W repo są szablony: *Wykład — pytania i reakcje*, *Retrospektywa zajęć*, *Burza mózgów: zagrożenia w sieci*,
-*Szybki quiz*, każdy w wersji PL i EN.
+*Szybki quiz*, *Głosowanie (ankieta)*, każdy w wersji PL i EN.
 
 ## Wersje i wydania
 

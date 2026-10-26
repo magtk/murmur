@@ -12,6 +12,7 @@ Author: MagTk (https://github.com/magtk). License: PolyForm Noncommercial 1.0.0 
 - Voting, drag-and-drop grouping (also via keyboard), sorting by votes
 - "Think first" mode: cards stay hidden until the instructor reveals them (manually or with a timer)
 - Short single- and multiple-choice quizzes with timer and live results
+- Polls (yes/no, one of several, multiple options) with live vote distribution
 - Discreet counter of how many people have contributed
 - Export to Markdown, PNG, PDF and JSON; board templates stored as JSON
 - WCAG 2.2 AA (audited with axe-core), light/dark theme, works on phones
