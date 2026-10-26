@@ -346,7 +346,7 @@ murmur jest i pozostanie bezpłatny dla edukacji. Jeśli Ci się przydaje, może
 
 ## Licencje i autorstwo
 
-**© 2026 magtk. Licencja: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/)** (pełny tekst w `LICENSE.md`).
+**© 2026 MagTk. Licencja: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/)** (pełny tekst w `LICENSE.md`).
 To licencja *source-available*: kod jest publiczny, ale nie jest to *open source* w rozumieniu OSI.
 
 | Kto / do czego | Bez pytania, za darmo | Licencja komercyjna |

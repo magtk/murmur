@@ -44,4 +44,4 @@ Briefly describe who you are and how you want to use the tool.
 
 ---
 
-Required Notice: Copyright 2026 magtk (https://github.com/magtk)
+Required Notice: Copyright 2026 MagTk (https://github.com/magtk)

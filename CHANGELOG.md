@@ -3,11 +3,19 @@
 All notable changes to murmur are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [SemVer](https://semver.org/).
 
+## [1.3.1] - 2026-10-26
+
+### Changed
+- Author name written as "MagTk" in the start-page footer, README and the copyright notice in `LICENSE.md` and `COMMERCIAL.md` (from this version on).
+
 ## [1.3.0] - 2026-10-26
 
 ### Added
 - Polls (surveys): a quiz without correct answers. New "poll / survey" switch in the quiz editor; results show only the distribution of votes (no ✓), Markdown export lists options without checkboxes. Template field `"poll": true`.
 - Template "Głosowanie (ankieta)" / "Poll (survey)": yes/no, 1 of 2, 1 of 3 (single choice) and several options (multiple choice), each as a separate poll to start one at a time.
+
+### Changed
+- Start-page footer centred, in three lines: support sentence; version, copyright and privacy; licence and commercial-use contact.
 
 ### Fixed
 - Quiz editor showed "[object HTMLFieldSetElement]" instead of the question fields.
@@ -88,6 +96,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [S
 - Peer-to-peer, no backend (WebRTC via Trystero, Nostr signalling); instructor verification by ECDSA key fingerprint.
 - PolyForm Noncommercial 1.0.0 licence; commercial licence on request.
 
+[1.3.1]: https://github.com/magtk/murmur/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/magtk/murmur/compare/v1.2.5...v1.3.0
 [1.2.5]: https://github.com/magtk/murmur/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/magtk/murmur/compare/v1.2.3...v1.2.4

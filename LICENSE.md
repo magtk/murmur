@@ -1,4 +1,4 @@
-Required Notice: Copyright 2026 magtk (https://github.com/magtk)
+Required Notice: Copyright 2026 MagTk (https://github.com/magtk)
 
 Licencja obejmuje kod aplikacji murmur (index.html, app.js, i18n.js, style.css) oraz treści
 (README.md, boards/). Komponenty w katalogu lib/ mają własne licencje (MIT, SIL OFL 1.1) —

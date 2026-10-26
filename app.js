@@ -22,7 +22,7 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.3.0'
+const APP_VERSION = '1.3.1'
 const CONTACT_URL = 'mailto:magtk@duck.com?subject=' + encodeURIComponent('murmur – licencja komercyjna / commercial licence')
 const REPO_URL = 'https://github.com/magtk/murmur'
 const KOFI_URL = 'https://ko-fi.com/magtk' // zwykły link — bez widżetu i skryptów Ko-fi (zero śledzenia)
@@ -1308,7 +1308,7 @@ async function homeMain() {
           h('button', { class: 'pri', onclick: () => startHostWith({ title: title.value, sections: secs.value.split('\n').map(s => s.trim()).filter(Boolean) }), text: T('create') })))),
     h('footer', { class: 'home-foot' },
       h('p', { class: 'home-support' }, T('supportPre'), h('a', { class: 'kofi', href: KOFI_URL, target: '_blank', rel: 'noopener', title: T('supportHint'), text: T('support') }), T('supportPost')),
-      h('p', {}, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
+      h('p', {}, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 MagTk · ',
         h('a', { href: '#', onclick: e => { e.preventDefault(); privacyDialog() }, text: T('privacy') })),
       h('p', {}, h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
         ' · ', T('licenceFree'), ' · ', T('licenceCommercial'), ' ',
