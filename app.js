@@ -22,7 +22,7 @@ const LOCAL = new URLSearchParams(location.search).has('local') // test w kartac
 const COLORS = ['amber', 'green', 'rose', 'teal', 'violet', 'sky']
 const MAX_TEXT = 500
 const MAX_CARDS = 1500
-const APP_VERSION = '1.3.1'
+const APP_VERSION = '1.3.2'
 const CONTACT_URL = 'mailto:magtk@duck.com?subject=' + encodeURIComponent('murmur – licencja komercyjna / commercial licence')
 const REPO_URL = 'https://github.com/magtk/murmur'
 const KOFI_URL = 'https://ko-fi.com/magtk' // zwykły link — bez widżetu i skryptów Ko-fi (zero śledzenia)

@@ -3,10 +3,15 @@
 All notable changes to murmur are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [SemVer](https://semver.org/).
 
+## [1.3.2] - 2026-10-26
+
+### Changed
+- Copyright notice in `LICENSE.md` and `COMMERCIAL.md` now reads "Copyright 2026 MagTk" (from this version on; earlier releases keep their original notice).
+
 ## [1.3.1] - 2026-10-26
 
 ### Changed
-- Author name written as "MagTk" in the start-page footer, README and the copyright notice in `LICENSE.md` and `COMMERCIAL.md` (from this version on).
+- Author name shown as "MagTk" in the start-page footer and README (the licence notice in `LICENSE.md` stays unchanged).
 
 ## [1.3.0] - 2026-10-26
 
@@ -96,6 +101,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioning: [S
 - Peer-to-peer, no backend (WebRTC via Trystero, Nostr signalling); instructor verification by ECDSA key fingerprint.
 - PolyForm Noncommercial 1.0.0 licence; commercial licence on request.
 
+[1.3.2]: https://github.com/magtk/murmur/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/magtk/murmur/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/magtk/murmur/compare/v1.2.5...v1.3.0
 [1.2.5]: https://github.com/magtk/murmur/compare/v1.2.4...v1.2.5
