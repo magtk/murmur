@@ -1298,12 +1298,13 @@ async function homeMain() {
           h('label', { class: 'stack' }, T('title'), title),
           h('label', { class: 'stack' }, T('secsLbl'), secs),
           h('button', { class: 'pri', onclick: () => startHostWith({ title: title.value, sections: secs.value.split('\n').map(s => s.trim()).filter(Boolean) }), text: T('create') })))),
-    h('p', { class: 'home-support' }, T('supportPre'), h('a', { class: 'kofi', href: KOFI_URL, target: '_blank', rel: 'noopener', title: T('supportHint'), text: T('support') }), T('supportPost')),
-    h('p', { class: 'home-foot' }, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
-      h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
-      ' · ', T('licenceFree'), ' · ', T('licenceCommercial'), ' ',
-      h('a', { href: CONTACT_URL, target: '_blank', rel: 'noopener', text: T('licenceAsk') }),
-      ' · ', h('a', { href: '#', onclick: e => { e.preventDefault(); privacyDialog() }, text: T('privacy') }))))
+    h('footer', { class: 'home-foot' },
+      h('p', { class: 'home-support' }, T('supportPre'), h('a', { class: 'kofi', href: KOFI_URL, target: '_blank', rel: 'noopener', title: T('supportHint'), text: T('support') }), T('supportPost')),
+      h('p', {}, h('a', { href: `${REPO_URL}/blob/main/CHANGELOG.md`, target: '_blank', rel: 'noopener', text: `v${APP_VERSION}` }), ' · © 2026 magtk · ',
+        h('a', { href: '#', onclick: e => { e.preventDefault(); privacyDialog() }, text: T('privacy') })),
+      h('p', {}, h('a', { href: 'https://polyformproject.org/licenses/noncommercial/1.0.0/', target: '_blank', rel: 'noopener', text: 'PolyForm Noncommercial 1.0.0' }),
+        ' · ', T('licenceFree'), ' · ', T('licenceCommercial'), ' ',
+        h('a', { href: CONTACT_URL, target: '_blank', rel: 'noopener', text: T('licenceAsk') })))))
   try {
     const r = await fetch('boards/index.json', { cache: 'no-cache' })
     if (!r.ok) throw 0
